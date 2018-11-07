@@ -1,0 +1,14 @@
+{
+    "require": {
+        "twig/twig": "^2.5",
+        "filp/whoops": "^2.3",
+        "erusev/parsedown": "^1.7",
+        "erusev/parsedown-extra": "^0.7.1",
+        "symfony/dotenv": "^4.1",
+        "altorouter/altorouter": "^1.2",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    }
+}
