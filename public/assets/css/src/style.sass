@@ -1,8 +1,23 @@
-@import "elements/parallax.sass"
+@import "elements/fonts"
+@import "elements/parallax"
+@import "elements/navbar"
+@import "elements/posts"
 
 html, body
+  font-family: Montserrat, sans-serif
   width: 100%
   height: 100%
   margin: 0
   padding: 0
-  background: #131313
+
+body
+  background-color: #131313
+  background-image: url("/public/assets/img/bg_parallax/bgp-large.png"), url("/public/assets/img/bg_parallax/bgp-medium.png"), url("/public/assets/img/bg_parallax/bgp-smol.png")
+  filter: alpha(Opacity=10)
+  animation: slide 2s linear infinite
+
+@keyframes slide
+  0%
+    background-position: 0 0
+  100%
+    background-position: 0 200px, 0 120px, 0 100px

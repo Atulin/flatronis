@@ -7,23 +7,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/src/style.min.css') }}">
 
     <script src="{{ asset('assets/js/rellax.min.js') }}"></script>
+    <script defer src="{{ asset('assets/js/sticker.min.js') }}"></script>
 </head>
 <body>
 
-<div class="parallax-container">
-    <img src="{{ asset('assets/img/parallax-1.png') }}" alt="" class="rellax parallax-layer" data-rellax-speed="4">
-    <img src="{{ asset('assets/img/parallax-2.png') }}" alt="" class="rellax parallax-layer" data-rellax-speed="8">
-    <img src="{{ asset('assets/img/parallax-3.png') }}" alt="" class="rellax parallax-layer" data-rellax-speed="12">
-</div>
+    <div class="parallax-container">
+        <img src="{{ asset('assets/img/parallax/parallax-1.png') }}" class="rellax parallax-layer" data-rellax-speed="-4">
+        <img src="{{ asset('assets/img/parallax/parallax-2.png') }}" class="rellax parallax-layer" data-rellax-speed="-3">
+        <img src="{{ asset('assets/img/parallax/parallax-3.png') }}" class="rellax parallax-layer" data-rellax-speed="-1">
+    </div>
+
+    <nav class="navbar" id="navbar">OwO</nav>
+
+    <div class="post-container">
+        <article class="post">
+            <h2 class="title">OwO what's this?</h2>
+        </article>
+    </div>
 
 
-<script>
-    // Accepts any class name
-    var rellax = new Rellax('.rellax');
-</script>
+
+    <script>
+        // Accepts any class name
+        var rellax = new Rellax('.rellax');
+    </script>
 
 </body>
 </html>
