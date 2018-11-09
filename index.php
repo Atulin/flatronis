@@ -7,10 +7,10 @@
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/backend/models/Database.php';
 
 use Symfony\Component\Dotenv\Dotenv;
 use Whoops\Run;
-use Controller\HomeController;
 
 
 // Set up error reporting

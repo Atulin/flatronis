@@ -16,11 +16,14 @@ $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
     return sprintf('/public/%s', ltrim($asset, '/'));
 }));
 
+// Set up variables
+$msg = (new Database())->connect();
+
 // Render Twig template
 try {
     // Render the actual Twig template
     echo $twig->render('home.twig', array(
-
+        var_export($msg, true),
     ));
 
     // Handle all possible errors
