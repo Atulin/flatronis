@@ -12,18 +12,23 @@ $loader = new Twig_Loader_Filesystem(array(
         dirname(__DIR__,1).'/assets')
 );
 $twig = new Twig_Environment($loader);
+$twig->addExtension(new Twig_Extensions_Extension_Text());
 $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
     return sprintf('/public/%s', ltrim($asset, '/'));
 }));
 
 // Set up variables
-$msg = (new Database())->connect();
+try {
+    $posts = Post::GetAll();
+} catch (PDOException $e) {
+    $posts[0]['body'] = $e;
+}
 
 // Render Twig template
 try {
     // Render the actual Twig template
     echo $twig->render('home.twig', array(
-        var_export($msg, true),
+        'posts' => $posts
     ));
 
     // Handle all possible errors
