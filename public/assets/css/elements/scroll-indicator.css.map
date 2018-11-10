@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,MAAM;EACJ,UAAU,EAAE,MAAM;EAClB,MAAM,EAAE,IAAI;;AAEd,OAAO;EACL,SAAS,EAAE,kBAAkB;;;;IAI3B,SAAS,EAAE,aAAa;;IAGxB,SAAS,EAAE,iBAAiB;;IAG5B,SAAS,EAAE,iBAAiB",
+"sources": ["scroll-indicator.sass"],
+"names": [],
+"file": "scroll-indicator.css"
+}

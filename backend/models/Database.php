@@ -8,24 +8,13 @@
 
 class Database
 {
-    /**
-     * PDO instance
-     * @var \PDO
-     */
-    private $pdo;
-
-    /**
-     * return in instance of the PDO object that connects to the SQLite database
-     * @return PDO|string
-     */
-    public function connect() {
-        if ($this->pdo === null) {
-            try {
-                $this->pdo = new \PDO('sqlite:' . $_ENV['DB']);
-            } catch (\PDOException $e) {
-                return $e->getMessage();
-            }
+    public static function Get() : \PDO
+    {
+        try {
+            return new PDO("mysql:host={$_ENV['HOST']};dbname={$_ENV['DB']}", $_ENV['USER'], $_ENV['PASS']);
+        } catch (PDOException $e) {
+            var_dump($e);
+            throw $e;
         }
-        return $this->pdo;
     }
 }

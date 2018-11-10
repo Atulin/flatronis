@@ -6,29 +6,51 @@
  * Time: 05:10
  */
 
+require_once __DIR__.'/Database.php';
+require_once __DIR__.'/Category.php';
+
 class Post
 {
-    private $body;
+    private $id;
     private $title;
     private $date;
     private $category;
+    private $body;
 
     /**
      * Post constructor.
-     * @param $body string
+     * @param int $id
      * @param $title string
      * @param $date datetime
-     * @param $category int
+     * @param Category $category int
+     * @param $body string
      */
-    public function __construct(string $body, string $title, datetime $date, int $category)
+    public function __construct(int $id, string $title, datetime $date, Category $category, string $body)
     {
-        $this->body = $body;
+        $this->id = $id;
         $this->title = $title;
         $this->date = $date;
         $this->category = $category;
+        $this->body = $body;
     }
 
     //region Getters & Setters
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     /**
      * @return string
      */
@@ -78,9 +100,9 @@ class Post
     }
 
     /**
-     * @return int
+     * @return Category
      */
-    public function getCategory(): int
+    public function getCategory(): Category
     {
         return $this->category;
     }
@@ -94,8 +116,73 @@ class Post
     }
     //endregion
 
-    public static function get(int $id) {
+    /**
+     * @param int $id
+     * @return Post
+     */
+    public static function Get(int $id): \Post
+    {
+        $dbh = Database::Get();
+        $sql = 'SELECT * FROM `posts`
+                WHERE `id` = :id
+                LIMIT 1';
 
+        $sth = $dbh->prepare($sql);
+
+        $sth->bindParam(':id', $id, PDO::PARAM_INT);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+
+        return self::Build($sth->fetch(PDO::FETCH_ASSOC));
+    }
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
+    public static function GetAll(int $limit = 10000, int $offset = 0): array
+    {
+        $dbh = Database::Get();
+        $sql = 'SELECT * FROM `posts`
+                ORDER BY `date` DESC
+                LIMIT :l OFFSET :o';
+
+        $sth = $dbh->prepare($sql);
+
+        $sth->bindParam(':l', $limit, PDO::PARAM_INT);
+        $sth->bindParam(':o', $offset, PDO::PARAM_INT);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+
+        $posts = $sth->fetchAll();
+        foreach ($posts as $key => $post) {
+            $posts[$key] = self::Build($post);
+        }
+        return $posts;
+    }
+
+    /**
+     * @param array $post
+     * @return Post
+     */
+    private static function Build(array $post): \Post
+    {
+        return new Post(
+            $post['id'],
+            $post['title'],
+            DateTime::createFromFormat('Y-m-d h:i:s', $post['date']),
+            Category::Get($post['category']),
+            $post['body']
+        );
     }
 
 }
