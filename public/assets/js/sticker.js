@@ -1,17 +1,19 @@
-const nav = document.querySelector('.navbar');
+const nav = document.querySelector('#navbar');
 const navTop = nav.offsetTop;
 
 function stickyNavigation() {
-    console.log('navTop = ' + navTop);
-    console.log('scrollY = ' + window.scrollY);
+    // console.log('navTop = ' + navTop);
+    // console.log('scrollY = ' + window.scrollY);
 
     if (window.scrollY >= navTop) {
         // nav offsetHeight = height of nav
         document.body.style.paddingTop = nav.offsetHeight + 'px';
-        document.body.classList.add('fixed-nav');
+        nav.classList.add('fixed');
+        console.log("Unstick: " + nav.classList);
     } else {
         document.body.style.paddingTop = 0;
-        document.body.classList.remove('fixed-nav');
+        nav.classList.remove('fixed');
+        console.log("Stick: " + nav.classList);
     }
 }
 

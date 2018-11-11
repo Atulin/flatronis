@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: Montserrat;
   font-style: normal;
@@ -18,6 +19,31 @@
   font-style: italic;
   font-weight: bold;
   src: url(/public/assets/fonts/Montserrat-BoldItalic.ttf) format("truetype"); }
+@font-face {
+  font-family: "icomoon";
+  src: url("/public/assets/fonts/icons/icomoon.eot?yue2o5");
+  src: url("/public/assets/fonts/icons/icomoon.eot?yue2o5#iefix") format("embedded-opentype"), url("/public/assets/fonts/icons/icomoon.ttf?yue2o5") format("truetype"), url("/public/assets/fonts/icons/icomoon.woff?yue2o5") format("woff"), url("/public/assets/fonts/icons/icomoon.svg?yue2o5#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon", sans-serif !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-menu:before {
+  content: ""; }
+
+.icon-home:before {
+  content: ""; }
+
 .background {
   background-image: url("/public/assets/img/bg_parallax/bgp-large.png"), url("/public/assets/img/bg_parallax/bgp-medium.png"), url("/public/assets/img/bg_parallax/bgp-smol.png");
   filter: alpha(Opacity=10);
@@ -55,19 +81,20 @@ nav.navbar {
   height: 40px;
   background: #2a2a2a;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
-  z-index: 5; }
+  z-index: 9999999; }
+  nav.navbar.fixed {
+    position: fixed;
+    top: 0; }
   nav.navbar .item {
     padding: 4px 8px;
     line-height: 32px;
+    text-align: center;
     background-color: #2a2a2a;
-    transition: background-color 0.5s; }
+    transition: background-color 0.5s;
+    color: white;
+    text-decoration: none; }
     nav.navbar .item:hover {
       background-color: #333333; }
-
-.fixed-nav nav {
-  position: fixed;
-  top: 0;
-  z-index: 5; }
 
 div.post-container {
   display: flex;
@@ -120,6 +147,49 @@ article.post {
       background-color: rgba(255, 255, 255, 0.29);
       text-decoration: underline; }
 
+div.single-post-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(at bottom, #1f1f1f, #131313) fixed;
+  z-index: 10; }
+  div.single-post-container article.single-post {
+    position: relative;
+    background: #2a2a2a;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+    margin: 80px 10px 10px; }
+    @media only screen and (max-width: 600px) {
+      div.single-post-container article.single-post {
+        width: 80%; } }
+    @media only screen and (min-width: 600px) {
+      div.single-post-container article.single-post {
+        width: 75%; } }
+    @media only screen and (min-width: 768px) {
+      div.single-post-container article.single-post {
+        width: 70%; } }
+    @media only screen and (min-width: 992px) {
+      div.single-post-container article.single-post {
+        width: 60%; } }
+    @media only screen and (min-width: 1200px) {
+      div.single-post-container article.single-post {
+        width: 55%; } }
+    div.single-post-container article.single-post h1.title {
+      display: flex;
+      margin: 14px 18px 4px; }
+    div.single-post-container article.single-post div.body {
+      padding: 4px 18px; }
+    div.single-post-container article.single-post time.date {
+      position: absolute;
+      padding: 3px;
+      top: -1rem;
+      right: 20px;
+      text-align: right;
+      font-size: small;
+      line-height: 1rem;
+      background: #4a4a4a;
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); }
+
 hr.fading {
   line-height: 1em;
   position: relative;
@@ -155,12 +225,11 @@ hr.fading {
   position: absolute;
   bottom: 10px;
   animation: bounce 2s infinite;
-  visibility: visible;
   opacity: 1;
-  transition: opacity 1.5s; }
+  transition: opacity 0.4s; }
   .scroll-indicator.disabled {
-    visibility: collapse;
-    opacity: 0; }
+    opacity: 0;
+    transition: opacity 0.4s; }
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
@@ -172,7 +241,7 @@ hr.fading {
 html, body {
   font-family: Montserrat, sans-serif;
   color: #fafafa;
-  background-color: #131313;
+  background-color: #161616;
   width: 100vw;
   height: 100vh;
   margin: 0;
