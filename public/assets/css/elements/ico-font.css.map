@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,WAAM;EACJ,gBAAgB,EAAE,wCAAwC",
+"sources": ["ico-font.sass"],
+"names": [],
+"file": "ico-font.css"
+}

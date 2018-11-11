@@ -1,0 +1,36 @@
+{% extends'Master.twig' %}
+{% block title %}Erronis Games{% endblock %}
+
+{% block scripts %}{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar fixed" id="navbar">
+        <a href="/" class="item">
+            <i class="icon-home"></i>
+        </a>
+        <div class="item">UwU</div>
+        <div class="item">Rawr</div>
+        <div class="item">{{ msg }}</div>
+    </nav>
+
+    <div class="single-post-container">
+
+        <article class="single-post">
+            <time class="date">{{ post.date|date }}</time>
+            <h1 class="title">{{ post.title }}</h1>
+            <hr class="fading text" data-content="{{ post.category.name }}">
+            <div class="body">
+                {{ post.body|truncate(1000, true)|nl2br }}
+            </div>
+        </article>
+
+    </div>
+
+    <script>
+        // Accepts any class name
+        var rellax = new Rellax('.rellax');
+    </script>
+
+{% endblock %}
+

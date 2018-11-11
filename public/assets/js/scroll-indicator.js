@@ -1,10 +1,10 @@
-const nav = document.querySelector('.scroll-indicator');
+const ind = document.querySelector('.scroll-indicator');
 
 function scrollIndicator() {
-    if (window.scrollY >= 100) {
-        nav.classList.add('disabled');
+    if (window.scrollY >= 50) {
+        ind.classList.add('disabled');
     } else {
-        nav.classList.remove('disabled');
+        ind.classList.remove('disabled');
     }
 }
 

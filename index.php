@@ -25,7 +25,6 @@ $whoops->register();
 
 // Set up routing
 $router = new AltoRouter();
-$router->setBasePath('/public/');
 
 // Load .env file
 $dotenv = new Dotenv();
@@ -45,8 +44,10 @@ session_regenerate_id(true);
 
 // Map routes
 try {
-    $router->map('GET', '', function (){
-        require 'public/controllers/Home.php';}, 'home');
+    $router->addRoutes(array(
+        array('GET', '/', function (){require 'public/controllers/Home.php';}, 'home'),
+        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require 'public/controllers/Post.php';}, 'post'),
+    ));
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
 }

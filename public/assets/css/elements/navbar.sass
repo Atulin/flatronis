@@ -9,19 +9,21 @@ nav.navbar
   height: $navh
   background: #2a2a2a
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.75)
-  z-index: 5
+  z-index: 9999999
+
+  &.fixed
+    position: fixed
+    top: 0
 
   .item
     padding: $vpad $hpad
     line-height: $navh - 2*$vpad
+    text-align: center
     background-color: #2a2a2a
     transition: background-color 0.5s
+    color: white
+    text-decoration: none
 
     &:hover
       background-color: #333333
 
-
-.fixed-nav nav
-  position: fixed
-  top: 0
-  z-index: 5

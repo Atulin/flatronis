@@ -1,28 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+{% extends'Master.twig' %}
+{% block title %}Erronis Games{% endblock %}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+{% block scripts %}
+    {{ parent() }}
+{% endblock %}
 
-    <script src="{{ asset('assets/js/rellax.min.js') }}"></script>
-    <script defer src="{{ asset('assets/js/sticker.min.js') }}"></script>
-    <script defer src="{{ asset('assets/js/scroll-indicator.min.js') }}"></script>
-</head>
-
-<body>
-
+{% block body %}
 <div class="background">
 
     <div class="parallax-container">
         <img src="{{ asset('assets/img/parallax/parallax-1.png') }}" class="rellax parallax-layer" data-rellax-speed="-4">
         <img src="{{ asset('assets/img/parallax/parallax-2.png') }}" class="rellax parallax-layer" data-rellax-speed="-3">
         <img src="{{ asset('assets/img/parallax/parallax-3.png') }}" class="rellax parallax-layer" data-rellax-speed="-1">
-        <div class="scroll-indicator">OwO</div>
+        <div class="scroll-indicator" id="scroll-indicator">⏷</div>
     </div>
 
     <nav class="navbar" id="navbar">
@@ -42,10 +32,12 @@
             <div class="excerpt">
                 {{ post.body|truncate(1000, true)|nl2br }}
             </div>
-            <a href="#" class="read-more">Read More</a>
+            <a href="/post/{{ post.id }}/{{ post.title }}" class="read-more">Read More</a>
         </article>
 
         {% endfor %}
+
+        <hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
 
     </div>
 
@@ -56,5 +48,5 @@
     var rellax = new Rellax('.rellax');
 </script>
 
-</body>
-</html>
+{% endblock %}
+
