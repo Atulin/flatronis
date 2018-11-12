@@ -18,6 +18,17 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Create session
+session_name('__Secure-PHPSESSID');
+session_set_cookie_params(
+    0,
+    '/',
+    'flatronis.test',
+    true,
+    true
+);
+session_start();
+
 // Set up Whoops
 $whoops = new Run();
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -30,23 +41,16 @@ $router = new AltoRouter();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
-// Create session
-session_name('__Secure-PHPSESSID');
-session_set_cookie_params(
-    0,
-    '/',
-    'sfnw.online',
-    true,
-    true
-);
-session_start();
-session_regenerate_id(true);
+
 
 // Map routes
 try {
     $router->addRoutes(array(
         array('GET', '/', function (){require 'public/controllers/Home.php';}, 'home'),
         array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require 'public/controllers/Post.php';}, 'post'),
+
+        // Registration
+        array('GET|POST', '/admin/register', function (){require 'public/controllers/admin/Register.php';}, 'register'),
     ));
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());

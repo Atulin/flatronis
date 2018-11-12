@@ -9,11 +9,11 @@ function stickyNavigation() {
         // nav offsetHeight = height of nav
         document.body.style.paddingTop = nav.offsetHeight + 'px';
         nav.classList.add('fixed');
-        console.log("Unstick: " + nav.classList);
+        console.log("Navbar unstick: " + nav.classList);
     } else {
         document.body.style.paddingTop = 0;
         nav.classList.remove('fixed');
-        console.log("Stick: " + nav.classList);
+        console.log("Navbar stick: " + nav.classList);
     }
 }
 
