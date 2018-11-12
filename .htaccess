@@ -6,7 +6,7 @@ RewriteRule ^(.*)/$ /$1 [L,R] # <- for test, for prod use [L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
 
-php_flag display_errors 1
+#php_flag display_errors 1
 
 # Add Caching.
 <FilesMatch ".(ico|jpg|jpeg|png|gif|js|css|swf)$">
@@ -25,7 +25,6 @@ php_flag display_errors 1
     Allow from all
 </Files>
 
-
 # Extra Security Headers
 Header set X-XSS-Protection "1; mode=block"
 Header always append X-Frame-Options SAMEORIGIN
@@ -33,9 +32,6 @@ Header set X-Content-Type-Options nosniff
 
 # Cookie security
 Header always edit Set-Cookie (.*) "$1; SameSite=Lax"
-
-# Feature policy
-Header always set Feature-Policy "geolocation 'none';midi 'none';notifications 'none';push 'none';sync-xhr 'none' https://sfnw.online;microphone 'none';camera 'none';magnetometer 'none';gyroscope 'none';speaker 'self';vibrate 'none';fullscreen 'self';payment 'none';"
 
 # Referer policy
 Header always set Referrer-Policy "same-origin"
