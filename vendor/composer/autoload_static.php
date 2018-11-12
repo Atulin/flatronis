@@ -27,6 +27,10 @@ class ComposerStaticInit014d1d0c23a19d1dc4d292de67a72224
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Dotenv\\' => 25,
         ),
+        'R' => 
+        array (
+            'RobThree\\Auth\\' => 14,
+        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -61,6 +65,10 @@ class ComposerStaticInit014d1d0c23a19d1dc4d292de67a72224
         'Symfony\\Component\\Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/dotenv',
+        ),
+        'RobThree\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/robthree/twofactorauth/lib',
         ),
         'Psr\\Log\\' => 
         array (
