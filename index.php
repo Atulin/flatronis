@@ -8,6 +8,8 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/backend/models/Post.php';
+require_once __DIR__ . '/backend/models/Category.php';
+require_once __DIR__ . '/backend/models/User.php';
 
 use Symfony\Component\Dotenv\Dotenv;
 use Whoops\Run;

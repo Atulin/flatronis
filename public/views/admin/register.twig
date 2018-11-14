@@ -2,7 +2,8 @@
 {% block title %}Erronis Games{% endblock %}
 
 {% block scripts %}
-    {{ parent() }}
+    <script defer src="{{ asset('assets/js/sticker.min.js') }}"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
 
 {% block body %}
@@ -13,24 +14,33 @@
         <div class="post-container">
 
             <form action="/admin/register" method="post" class="form" id="register">
+
                 <div class="field">
                     <label for="login">Login</label>
                     <input name="login" type="text" id="login">
                 </div>
+
                 <div class="field">
                     <label for="email">Email</label>
                     <input name="email" type="email" id="email">
                 </div>
+
                 <div class="field">
                     <label for="password">Password</label>
                     <input name="password" type="password" id="password">
                 </div>
+
                 <img src="{{ qr }}">
                 <div class="field">
                     <label for="2fa">2FA</label>
                     <input name="2fa" type="password" id="2fa">
                 </div>
-                <input type="submit" value="Register">
+
+                <input type="hidden" value="{{ token }}" name="token">
+
+                <button type="submit" class="g-recaptcha" data-sitekey="6LcvnnoUAAAAAOf48rm66QbtoVZuW-GP7lKwLYP8" data-callback="onSubmit">
+                    Register
+                </button>
             </form>
 
         </div>
@@ -38,8 +48,9 @@
     </div>
 
     <script>
-        // Accepts any class name
-        var rellax = new Rellax('.rellax');
+        function onSubmit() {
+            document.getElementById("register").submit();
+        }
     </script>
 
 {% endblock %}

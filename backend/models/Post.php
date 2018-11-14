@@ -8,11 +8,13 @@
 
 require_once __DIR__.'/Database.php';
 require_once __DIR__.'/Category.php';
+require_once __DIR__.'/User.php';
 
 class Post
 {
     private $id;
     private $title;
+    private $author;
     private $date;
     private $category;
     private $body;
@@ -21,14 +23,16 @@ class Post
      * Post constructor.
      * @param int $id
      * @param $title string
+     * @param User $author
      * @param $date datetime
      * @param Category $category int
      * @param $body string
      */
-    public function __construct(int $id, string $title, datetime $date, Category $category, string $body)
+    public function __construct(int $id, string $title, User $author, datetime $date, Category $category, string $body)
     {
         $this->id = $id;
         $this->title = $title;
+        $this->author = $author;
         $this->date = $date;
         $this->category = $category;
         $this->body = $body;
@@ -114,6 +118,22 @@ class Post
     {
         $this->category = $category;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param int $author
+     */
+    public function setUser(int $author)
+    {
+        $this->author = $author;
+    }
     //endregion
 
     /**
@@ -179,6 +199,7 @@ class Post
         return new Post(
             $post['id'],
             $post['title'],
+            User::Get($post['author']),
             DateTime::createFromFormat('Y-m-d h:i:s', $post['date']),
             Category::Get($post['category']),
             $post['body']

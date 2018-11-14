@@ -24,10 +24,33 @@ try {
     echo '<pre>'.var_export($e, true).'</pre>';
 }
 
+
+
 // Register
 if (!empty($_POST) && isset($_POST)) {
-    echo '<pre>'.var_export($_SESSION, true).'</pre>';
-    //echo $tfa->verifyCode($_SESSION['secret'], $_POST['2fa']);
+    // Verify captcha
+    $recaptcha = new \ReCaptcha\ReCaptcha($_ENV['CAPTCHA_S']);
+    $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
+    if ($resp->isSuccess()) {
+
+        // Check XCSRF
+        if ($_POST['token'] === $_SESSION['token']) {
+            $u = new User('',
+                $_POST['login'],
+                $_POST['email'],
+                password_hash($_POST['password'], PASSWORD_BCRYPT),
+                $_POST['2fa'],
+                password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_BCRYPT)
+            );
+            $u->Add();
+        } else {
+            die('XCSRF triggered');
+        }
+
+    } else {
+        $errors = $resp->getErrorCodes();
+        echo var_export($errors, true);
+    }
 }
 
 // Set up 2FA secret
@@ -46,12 +69,21 @@ try {
     echo '<pre>'.var_export($e, true).'</pre>';
 }
 
+// Token
+try {
+    $token = bin2hex(random_bytes(64));
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+$_SESSION['token'] = $token;
+
 
 // Render Twig template
 try {
     // Render the actual Twig template
     echo $twig->render('admin/register.twig', array(
-        'qr' => $qr,
+        'qr'    => $qr,
+        'token' => $token,
     ));
 
     // Handle all possible errors
