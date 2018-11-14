@@ -112,10 +112,11 @@ article.post {
   margin: 10px; }
   @media only screen and (max-width: 600px) {
     article.post {
-      width: 80%; } }
+      width: 95%;
+      font-size: small; } }
   @media only screen and (min-width: 600px) {
     article.post {
-      width: 75%; } }
+      width: 85%; } }
   @media only screen and (min-width: 768px) {
     article.post {
       width: 70%; } }
@@ -159,13 +160,15 @@ div.single-post-container {
     position: relative;
     background: #2a2a2a;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
-    margin: 80px 10px 10px; }
+    margin: 60px 10px; }
     @media only screen and (max-width: 600px) {
       div.single-post-container article.single-post {
-        width: 80%; } }
+        width: 95%;
+        margin: 40px 0;
+        font-size: small; } }
     @media only screen and (min-width: 600px) {
       div.single-post-container article.single-post {
-        width: 75%; } }
+        width: 85%; } }
     @media only screen and (min-width: 768px) {
       div.single-post-container article.single-post {
         width: 70%; } }
@@ -176,10 +179,13 @@ div.single-post-container {
       div.single-post-container article.single-post {
         width: 55%; } }
     div.single-post-container article.single-post h1.title {
-      display: flex;
       margin: 14px 18px 4px; }
     div.single-post-container article.single-post div.body {
-      padding: 4px 18px; }
+      margin: 4px 18px 10px; }
+      @media only screen and (max-width: 600px) {
+        div.single-post-container article.single-post div.body {
+          width: 92%;
+          margin: auto auto 10px; } }
     div.single-post-container article.single-post time.date {
       position: absolute;
       padding: 3px;
@@ -189,7 +195,7 @@ div.single-post-container {
       font-size: small;
       line-height: 1rem;
       background: #4a4a4a;
-      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); }
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75); }
 
 hr.fading {
   line-height: 1em;
