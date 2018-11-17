@@ -199,7 +199,7 @@ class Post
         return new Post(
             $post['id'],
             $post['title'],
-            User::Get($post['author']),
+            User::GetById($post['author']),
             DateTime::createFromFormat('Y-m-d h:i:s', $post['date']),
             Category::Get($post['category']),
             $post['body']

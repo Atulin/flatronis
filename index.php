@@ -43,6 +43,13 @@ $router = new AltoRouter();
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
+// Check user status
+$ipcheck = false;
+if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
+    $user = User::GetById($_SESSION['userid']);
+    $ipcheck = password_verify($_SERVER['REMOTE_ADDR'], $user->getDevice());
+}
+
 
 
 // Map routes
@@ -56,6 +63,25 @@ try {
     ));
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
+}
+
+if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
+    try {
+        $router->addRoutes(array(
+            array('GET|POST', '/admin/dashboard', function () {require 'public/controllers/admin/Dashboard.php';}, 'dashboard'),
+        ));
+    } catch (Exception $e) {
+        throw new RuntimeException($e->getMessage());
+    }
+} else {
+    try {
+        $router->addRoutes(array(
+            // Login
+            array('GET|POST', '/admin/login', function () {require 'public/controllers/admin/Login.php';}, 'login'),
+        ));
+    } catch (Exception $e) {
+        throw new RuntimeException($e->getMessage());
+    }
 }
 
 $match = $router->match();
