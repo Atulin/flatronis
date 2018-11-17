@@ -33,18 +33,24 @@ if (!empty($_POST) && isset($_POST)) {
     $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
     if ($resp->isSuccess()) {
 
-        // Check XCSRF
-        if ($_POST['token'] === $_SESSION['token']) {
-            $u = new User('',
-                $_POST['login'],
-                $_POST['email'],
-                password_hash($_POST['password'], PASSWORD_BCRYPT),
-                $_POST['2fa'],
-                password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_BCRYPT)
-            );
-            $u->Add();
-        } else {
-            die('XCSRF triggered');
+        // Verify 2FA
+        $result = $tfa->verifyCode($_SESSION['secret'], $_POST['2fa']);
+        if ($result) {
+
+            // Check XCSRF
+            if ($_POST['token'] === $_SESSION['token']) {
+                $u = new User('',
+                    $_POST['login'],
+                    $_POST['email'],
+                    password_hash($_POST['password'], PASSWORD_BCRYPT),
+                    $_SESSION['secret'],
+                    password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_BCRYPT)
+                );
+                $u->Add();
+            } else {
+                die('XCSRF triggered');
+            }
+
         }
 
     } else {

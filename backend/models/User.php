@@ -138,16 +138,44 @@ class User
      * @param int $id
      * @return User
      */
-    public static function Get(int $id): \User
+    public static function GetById(int $id): \User
+    {
+        return self::GetBy($id, 'id', PDO::PARAM_INT);
+    }
+
+    /**
+     * @param string $name
+     * @return User
+     */
+    public static function GetByName(string $name): \User
+    {
+        return self::GetBy($name, 'name', PDO::PARAM_STR);
+    }
+
+    /**
+     * @param int $param
+     * @param string $field
+     * @param int $type
+     * @return User
+     */
+    private static function GetBy($param, string $field, int $type): \User
     {
         $dbh = Database::Get();
-        $sql = 'SELECT * FROM `users`
-                WHERE `id` = :id
-                LIMIT 1';
+        $sql = 'SELECT * FROM `users`';
+
+        switch ($field) {
+            case 'id':
+                $sql .= 'WHERE `id` = :param';
+                break;
+            case 'name':
+                $sql .= 'WHERE `name` = :param';
+                break;
+        }
+        $sql .= ' LIMIT 1';
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':id', $id, PDO::PARAM_INT);
+        $sth->bindParam(':param', $param, $type);
 
         try {
             $sth->execute();
