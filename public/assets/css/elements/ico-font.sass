@@ -6,7 +6,7 @@
   font-style: normal
 
 
-[class^="icon-"], [class*=" icon-"]
+i.icon
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon', sans-serif !important
   speak: none
@@ -20,9 +20,29 @@
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
+  &.light
+    font-weight: lighter
 
-.icon-menu:before
-  content: "\e900"
+  &.categories:before
+    content: "\e902"
 
-.icon-home:before
-  content: "\e901"
+  &.dashboard:before
+    content: "\e903"
+
+  &.delete:before
+    content: "\e904"
+
+  &.document:before
+    content: "\e905"
+
+  &.edit:before
+    content: "\e906"
+
+  &.expand:before
+    content: "\e907"
+
+  &.menu:before
+    content: "\e900"
+
+  &.home:before
+    content: "\e901"

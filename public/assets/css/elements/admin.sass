@@ -1,0 +1,64 @@
+div#admin
+  display: flex
+  min-height: 90vh
+  @media only screen and (max-width: 600px)
+    display: block
+
+  nav.sidebar
+    display: flex
+    flex-direction: column
+    overflow: hidden
+    flex: 0 0 300px
+    background: $medium
+    margin: 20px
+    box-shadow: $shadow-10
+
+    h1.item
+      width: 100%
+      margin: 8px
+      font-size: 1.5em
+      font-weight: normal
+
+    a.item
+      width: 100%
+      margin: 0
+      padding: 4px 8px
+      text-decoration: none
+      color: $text
+
+      &:hover
+        background-color: $light
+
+  .content
+    flex: 1 1
+    background: $medium
+    margin: 20px
+    padding: 10px
+    box-shadow: $shadow-10
+
+  ul.categories
+    list-style: none
+    margin: 10px
+    padding: 0
+
+    li
+      border: 1px $light solid
+      padding: 4px
+
+      .summary
+        display: flex
+
+        .id
+          flex: 0 0 20px
+
+        .name
+          flex-grow: 1
+          flex-shrink: 0
+
+        .actions
+
+      .description
+        margin-left: 20px
+        color: $lighter
+
+

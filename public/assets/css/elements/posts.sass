@@ -5,12 +5,12 @@ div.post-container
   align-items: center
   width: 100%
   min-height: 100%
-  background: radial-gradient(at bottom, #1f1f1f, #131313) fixed
+  background: radial-gradient(at bottom, $dark, $darker) fixed
   z-index: 10
 
 article.post
-  background: #2a2a2a
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.75)
+  background: $medium
+  box-shadow: $shadow-10
   margin: 10px
   @media only screen and (max-width: 600px)
     width: 95%
@@ -46,7 +46,7 @@ article.post
     border-bottom-right-radius: 0
     transition: background-color 0.5s
 
-    color: white
+    color: $text
     text-decoration: none
     line-height: 1.5em
     font-size: 1em
