@@ -1,0 +1,36 @@
+{% extends'Master.twig' %}
+{% block title %}Erronis Games{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ asset('assets/js/sticker.min.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+        {% include '/includes/navbar.twig' %}
+
+        <div id="admin">
+
+            {% include '/admin/includes/sidebar.twig' %}
+
+            <div class="content">
+                <ul class="categories">
+                    {% for cat in categories %}
+                        <li>
+                            <div class="summary">
+                                <div class="id">{{ cat.id }}</div>
+                                <div class="name">{{ cat.name }}</div>
+                                <div class="actions">OwO</div>
+                            </div>
+                            <div class="description">
+                                {{ cat.description }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+{% endblock %}
+

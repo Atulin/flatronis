@@ -188,7 +188,7 @@ abstract class Twig_Test_IntegrationTestCase extends TestCase
                     return $prevHandler ? $prevHandler($type, $msg, $file, $line, $context) : false;
                 });
 
-                $template = $twig->loadTemplate('index.twig');
+                $template = $twig->loadTemplate('dashboard.twig');
             } catch (Exception $e) {
                 if (false !== $exception) {
                     $message = $e->getMessage();
@@ -245,7 +245,7 @@ abstract class Twig_Test_IntegrationTestCase extends TestCase
         $templates = array();
         preg_match_all('/--TEMPLATE(?:\((.*?)\))?--(.*?)(?=\-\-TEMPLATE|$)/s', $test, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
-            $templates[($match[1] ? $match[1] : 'index.twig')] = $match[2];
+            $templates[($match[1] ? $match[1] : 'dashboard.twig')] = $match[2];
         }
 
         return $templates;

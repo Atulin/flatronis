@@ -31,15 +31,9 @@ try {
         'post' => $post
     ));
 
-    // Handle all possible errors
-} catch (Twig_Error_Loader $e) {
-    header('Content-type: application/json');
-    echo json_encode('Error [1]: '.$e);
-} catch (Twig_Error_Runtime $e) {
-    header('Content-type: application/json');
-    echo json_encode('Error [2]: '.$e);
-} catch (Twig_Error_Syntax $e) {
-    header('Content-type: application/json');
-    echo json_encode('Error [3]: '.$e);
+
+// Handle all possible errors
+} catch (Twig_Error $e) {
+    die('<pre>'.var_export($e, true).'</pre>');
 }
 
