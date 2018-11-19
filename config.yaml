@@ -1,0 +1,8 @@
+domain: flatronis.test
+parallax:
+  - file: assets/img/parallax/parallax-1.png
+    speed: -4
+  - file: assets/img/parallax/parallax-2.png
+    speed: -3
+  - file: assets/img/parallax/parallax-3.png
+    speed: -1

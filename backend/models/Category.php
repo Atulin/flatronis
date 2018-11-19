@@ -110,12 +110,12 @@ class Category
     {
         $dbh = Database::Get();
         $sql = 'SELECT * FROM `categories`
-                ORDER BY `name` DESC
+                ORDER BY `id` ASC
                 LIMIT :l OFFSET :o';
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':l', $limit, PDO::PARAM_INT);
+        $sth->bindParam(':l', $limit,  PDO::PARAM_INT);
         $sth->bindParam(':o', $offset, PDO::PARAM_INT);
 
         try {
@@ -129,6 +129,64 @@ class Category
             $categories[$key] = self::Build($cat);
         }
         return $categories;
+    }
+
+    /**
+     *
+     */
+    public function Add() {
+        $dbh = Database::Get();
+        $sql = 'INSERT INTO `categories` (id, name, description)
+                VALUES (:id, :name, :desc)';
+
+        $sth = $dbh->prepare($sql);
+
+        $sth->bindParam(':id',    $this->id,         PDO::PARAM_INT);
+        $sth->bindParam(':name',  $this->name,       PDO::PARAM_STR);
+        $sth->bindParam(':desc',  $this->description,PDO::PARAM_STR);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param int $id
+     */
+    public static function Delete(int $id) {
+        $dbh = Database::Get();
+        $sql = 'DELETE FROM `categories` WHERE `id` = :id';
+        $sth = $dbh->prepare($sql);
+        $sth->bindParam(':id', $id, PDO::PARAM_INT);
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     *
+     */
+    public function Update() {
+        $dbh = Database::Get();
+        $sql = 'UPDATE `categories`
+                SET `name` = :name, `description` = :desc
+                WHERE `id` = :id';
+
+        $sth = $dbh->prepare($sql);
+
+        $sth->bindParam(':id',    $this->id,         PDO::PARAM_INT);
+        $sth->bindParam(':name',  $this->name,       PDO::PARAM_STR);
+        $sth->bindParam(':desc',  $this->description,PDO::PARAM_STR);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
     }
 
     /**

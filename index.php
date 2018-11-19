@@ -12,8 +12,11 @@ require_once __DIR__ . '/backend/models/Category.php';
 require_once __DIR__ . '/backend/models/User.php';
 
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Yaml\Yaml;
 use Whoops\Run;
 
+// Load settings file
+define('SETTINGS', Yaml::parseFile('config.yaml'));
 
 // Set up error reporting
 ini_set('display_errors', 1);
@@ -25,7 +28,7 @@ session_name('__Secure-PHPSESSID');
 session_set_cookie_params(
     0,
     '/',
-    'flatronis.test',
+    SETTINGS['domain'],
     true,
     true
 );
@@ -59,8 +62,7 @@ try {
         array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require 'public/controllers/Post.php';}, 'post'),
 
         // Registration
-        array('GET|POST', '/admin/register', function (){
-            require 'public/controllers/user/Register.php';}, 'register'),
+        array('GET|POST', '/admin/register', function (){require 'public/controllers/user/Register.php';}, 'register'),
     ));
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
@@ -71,6 +73,7 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
         $router->addRoutes(array(
             array('GET', '/admin/dashboard', function () {require 'public/controllers/admin/Dashboard.php';}, 'dashboard'),
             array('GET|POST', '/admin/categories', function () {require 'public/controllers/admin/Categories.php';}, 'categories'),
+            array('GET|POST', '/admin/posts', function () {require 'public/controllers/admin/Posts.php';}, 'posts'),
         ));
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());

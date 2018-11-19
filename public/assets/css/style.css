@@ -265,8 +265,11 @@ form.form {
   flex-direction: column;
   background-color: #2a2a2a;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+  min-width: 20vw;
   margin: 60px 10px;
   padding: 20px; }
+  form.form.margin-20 {
+    margin: 20px; }
   form.form div.field {
     display: flex;
     flex-direction: column;
@@ -281,10 +284,23 @@ form.form {
       height: 1.5rem;
       padding: 4px;
       margin: 2px; }
+    form.form div.field textarea {
+      background-color: #4a4a4a;
+      color: white;
+      line-height: 1.5rem;
+      font-size: 1rem;
+      border: none;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+      padding: 4px;
+      margin: 2px; }
     form.form div.field img {
       box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
       padding: 2px;
-      margin: 2px; }
+      margin: 2px;
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
+      top: 0;
+      left: 0; }
     form.form div.field .button {
       background-color: #4a4a4a;
       color: white;
@@ -315,15 +331,18 @@ div#admin {
     div#admin nav.sidebar h1.item {
       width: 100%;
       margin: 8px;
+      padding: 0;
       font-size: 1.5em;
       font-weight: normal; }
-    div#admin nav.sidebar a.item {
+      div#admin nav.sidebar h1.item:hover {
+        background-color: inherit; }
+    div#admin nav.sidebar .item {
       width: 100%;
       margin: 0;
       padding: 4px 8px;
       text-decoration: none;
       color: #fafafa; }
-      div#admin nav.sidebar a.item:hover {
+      div#admin nav.sidebar .item:hover {
         background-color: #4a4a4a; }
   div#admin .content {
     flex: 1 1;
@@ -348,6 +367,25 @@ div#admin {
       div#admin ul.categories li .description {
         margin-left: 20px;
         color: #818078; }
+
+.button {
+  display: inline-block;
+  background-color: #4a4a4a;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  border: none;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+  height: 1.5rem;
+  min-width: 1.5rem;
+  padding: 2px;
+  margin: 2px; }
+  .button:hover {
+    background-color: #818078; }
+  .button.full {
+    width: calc(100% - 8px); }
 
 html, body {
   font-family: Montserrat, sans-serif;

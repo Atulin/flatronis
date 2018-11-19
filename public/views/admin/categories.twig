@@ -7,30 +7,68 @@
 
 {% block body %}
 
-        {% include '/includes/navbar.twig' %}
+    {% include '/includes/navbar.twig' %}
 
-        <div id="admin">
+    <div id="admin">
 
-            {% include '/admin/includes/sidebar.twig' %}
+        {% include '/admin/includes/sidebar.twig' %}
 
-            <div class="content">
-                <ul class="categories">
-                    {% for cat in categories %}
-                        <li>
-                            <div class="summary">
-                                <div class="id">{{ cat.id }}</div>
-                                <div class="name">{{ cat.name }}</div>
-                                <div class="actions">OwO</div>
-                            </div>
-                            <div class="description">
-                                {{ cat.description }}
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+
+        <form action="/admin/categories" class="margin-20 form" method="post">
+
+            <div class="field">
+                <label for="name">Name</label>
+                <input title="name" name="name" type="text" id="cat-name">
             </div>
 
+            <div class="field">
+                <label for="description">Description</label>
+                <textarea title="description" name="description" id="cat-desc"></textarea>
+            </div>
+
+            <input type="hidden" value="{{ token }}" name="token">
+            <input type="hidden" value="" name="id" id="cat-id">
+
+            <div class="field">
+                <input class="button" type="submit" value="Save">
+            </div>
+
+        </form>
+
+        <div class="content">
+
+            <ul class="categories">
+                {% for cat in categories %}
+                    <li>
+                        <div class="summary">
+                            <div class="id">{{ cat.id }}</div>
+                            <div class="name">{{ cat.name }}</div>
+                            <div class="actions">
+                                <a class="button" href="/admin/categories?del={{ cat.id }}&token={{ token }}">
+                                    <i class="delete icon"></i>
+                                </a>
+                                <a class="button" onclick="insertData({{ cat.id }}, '{{ cat.name }}', '{{ cat.description }}')">
+                                    <i class="edit icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="description">
+                            {{ cat.description }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
+
+    </div>
+
+    <script>
+        function insertData(id, name, desc) {
+            document.getElementById("cat-name").value = name;
+            document.getElementById("cat-desc").value = desc;
+            document.getElementById("cat-id")  .value = id;
+        }
+    </script>
 
 {% endblock %}
 
