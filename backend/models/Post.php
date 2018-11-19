@@ -12,12 +12,12 @@ require_once __DIR__.'/User.php';
 
 class Post
 {
-    private $id;
-    private $title;
-    private $author;
-    private $date;
-    private $category;
-    private $body;
+    public $id;
+    public $title;
+    public $author;
+    public $date;
+    public $category;
+    public $body;
 
     /**
      * Post constructor.
@@ -37,104 +37,6 @@ class Post
         $this->category = $category;
         $this->body = $body;
     }
-
-    //region Getters & Setters
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBody(): string
-    {
-        return $this->body;
-    }
-
-    /**
-     * @param string $body
-     */
-    public function setBody(string $body)
-    {
-        $this->body = $body;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return datetime
-     */
-    public function getDate(): datetime
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param datetime $date
-     */
-    public function setDate(datetime $date)
-    {
-        $this->date = $date;
-    }
-
-    /**
-     * @return Category
-     */
-    public function getCategory(): Category
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param int $category
-     */
-    public function setCategory(int $category)
-    {
-        $this->category = $category;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param int $author
-     */
-    public function setUser(int $author)
-    {
-        $this->author = $author;
-    }
-    //endregion
 
     /**
      * @param int $id

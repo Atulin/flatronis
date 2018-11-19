@@ -39,7 +39,7 @@ if (!empty($_POST) && isset($_POST)) {
 
             // Check XCSRF
             if ($_POST['token'] === $_SESSION['token']) {
-                $u = new User('',
+                $u = new User(0,
                     $_POST['login'],
                     $_POST['email'],
                     password_hash($_POST['password'], PASSWORD_BCRYPT),
@@ -58,6 +58,7 @@ if (!empty($_POST) && isset($_POST)) {
         echo var_export($errors, true);
     }
 }
+
 
 // Set up 2FA secret
 try {
@@ -88,8 +89,9 @@ $_SESSION['token'] = $token;
 try {
     // Render the actual Twig template
     echo $twig->render('user/register.twig', array(
-        'qr'    => $qr,
-        'token' => $token,
+        'qr'      => $qr,
+        'token'   => $token,
+        'captcha' => $_ENV['CAPTCHA']
     ));
 
 // Handle all possible errors

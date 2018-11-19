@@ -25,6 +25,7 @@ class ComposerStaticInit014d1d0c23a19d1dc4d292de67a72224
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Dotenv\\' => 25,
         ),
         'R' => 
@@ -62,6 +63,10 @@ class ComposerStaticInit014d1d0c23a19d1dc4d292de67a72224
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Symfony\\Component\\Yaml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
         'Symfony\\Component\\Dotenv\\' => 
         array (
