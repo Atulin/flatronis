@@ -10,7 +10,7 @@
 
     <div class="parallax-container">
         {% for p in parallax %}
-            <img src="{{ asset(p.file) }}" class="rellax parallax-layer" data-rellax-speed="{{ p.speed }}">
+            <img src="{{ asset(p.file) }}" class="rellax parallax-layer" data-rellax-speed="{{ p.speed }}" alt="{{ p.alt }}">
         {% endfor %}
         <div class="scroll-indicator" id="scroll-indicator"><i class="icon expand"></i></div>
     </div>

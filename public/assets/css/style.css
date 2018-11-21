@@ -171,6 +171,7 @@ div.single-post-container {
   background: radial-gradient(at bottom, #1f1f1f, #131313) fixed;
   z-index: 10; }
   div.single-post-container article.single-post {
+    position: relative;
     background: #2a2a2a;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
     margin: 60px 10px; }
@@ -202,7 +203,7 @@ div.single-post-container {
     div.single-post-container article.single-post time.date {
       position: absolute;
       padding: 3px;
-      top: -1rem;
+      top: -10px;
       right: 20px;
       text-align: right;
       font-size: small;

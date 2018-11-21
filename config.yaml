@@ -1,8 +1,11 @@
 domain: flatronis.test
 parallax:
   - file: assets/img/parallax/parallax-1.png
+    alt: logo layer 1
     speed: -4
   - file: assets/img/parallax/parallax-2.png
+    alt: logo layer 2
     speed: -3
   - file: assets/img/parallax/parallax-3.png
+    alt: logo layer 3
     speed: -1
