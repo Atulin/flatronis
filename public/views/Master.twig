@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Description" content="{% block description %}Erronis Games{% endblock %}">
+    <link rel="canonical" href="{% block canonical %}{% endblock %}">
+
     <title>{% block title %}Erronis Games{% endblock %}</title>
+
+     {#O penGraph SEO #}
+    <meta property="og:title" content="{{ block('title') }}">
+    <meta property="og:description" content="{{ block('description') }}">
+    <meta property="og:image" content="{% block thumbnail %}{% endblock %}">
+    <meta property="og:url" content="{{ block('canonical') }}">
+    <meta property="og:site_name" content="Erronis Games">
+
+     {# Twitter SEO #}
+    <meta name="twitter:card" content="{% block summary %}{% endblock %}">
+    <meta name="twitter:site" content="@ErronisGames">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
     {#<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">#}

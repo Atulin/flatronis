@@ -34,6 +34,6 @@ try {
 
 
 // Handle all possible errors
-} catch (Twig_Error $e) {
-    die('<pre>'.var_export($e, true).'</pre>');
+} catch (Twig_Error$e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
 }
