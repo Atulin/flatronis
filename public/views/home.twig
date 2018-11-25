@@ -29,7 +29,7 @@
             <h2 class="title">{{ post.title }}</h2>
             <hr class="fading text" data-content="{{ post.category.name }}">
             <div class="excerpt">
-                {{ post.body|truncate(1000, true)|nl2br }}
+                {{ post.body|truncate(1000, true)|raw }}
             </div>
             <a href="/post/{{ post.id }}/{{ post.title }}" class="read-more">Read More</a>
         </article>

@@ -16,7 +16,7 @@
             <h1 class="title">{{ post.title }}</h1>
             <hr class="fading text" data-content="{{ post.category.name }}">
             <div class="body">
-                {{ post.body|nl2br }}
+                {{ post.body|raw }}
             </div>
         </article>
 

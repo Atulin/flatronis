@@ -15,7 +15,7 @@
 
         <div class="content">
 
-            <a href="#" class="full button">Create new</a>
+            <a href="/admin/editor" class="full button">Create new</a>
 
             <ul class="categories">
                 {% for post in posts %}
@@ -24,10 +24,10 @@
                             <div class="id">{{ post.id }}</div>
                             <div class="name">{{ post.title }}</div>
                             <div class="actions">
-                                <a class="button" href="/admin/categories?del={{ post.id }}&token={{ token }}">
+                                <a class="button" href="/admin/posts?del={{ post.id }}&token={{ token }}">
                                     <i class="delete icon"></i>
                                 </a>
-                                <a class="button">
+                                <a class="button" href="/admin/editor?id={{ post.id }}">
                                     <i class="edit icon"></i>
                                 </a>
                             </div>
