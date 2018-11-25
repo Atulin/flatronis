@@ -10,9 +10,9 @@ require_once __DIR__.'/Database.php';
 
 class Category
 {
-    private $id;
-    private $name;
-    private $description;
+    public $id;
+    public $name;
+    public $description;
 
     /**
      * Post constructor.
@@ -26,56 +26,6 @@ class Category
         $this->name = $name;
         $this->description = $description;
     }
-
-    //region Getters & Setters
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
-    }
-    //endregion
 
     /**
      * @param int $id

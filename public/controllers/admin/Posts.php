@@ -17,6 +17,19 @@ $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
     return sprintf('/public/%s', ltrim($asset, '/'));
 }));
 
+
+//Delete
+if (isset($_GET['del']) && !empty($_GET['token']) && !empty($_GET['del'])) {
+    // Check XCSRF
+    if ($_GET['token'] === $_SESSION['token']) {
+        Post::Delete($_GET['del']);
+        header('Location: /admin/posts');
+    } else {
+        die('XCSRF triggered');
+    }
+}
+
+
 // Set up variables
 $user = User::GetById($_SESSION['userid']);
 

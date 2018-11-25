@@ -1,0 +1,40 @@
+{% extends'Master.twig' %}
+{% block title %}Erronis Games{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="background">
+
+        {% include '/includes/navbar.twig' %}
+
+        <div class="post-container">
+
+            <form action="/admin/mfa" method="post" class="form" id="login">
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input name="password" type="password" id="password">
+                </div>
+
+                <div class="field">
+                    <label for="2fa">2FA</label>
+                    <img src="{{ qr }}">
+                    <input name="2fa" type="password" id="2fa">
+                </div>
+
+                <input type="hidden" value="{{ token }}" name="token">
+
+                <div class="field">
+                    <input type="submit" value="Save">
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

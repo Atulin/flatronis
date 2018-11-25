@@ -50,7 +50,7 @@ $dotenv->load(__DIR__.'/.env');
 $ipcheck = false;
 if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     $user = User::GetById($_SESSION['userid']);
-    $ipcheck = password_verify($_SERVER['REMOTE_ADDR'], $user->getDevice());
+    $ipcheck = password_verify($_SERVER['REMOTE_ADDR'], $user->device);
 }
 
 
@@ -63,17 +63,20 @@ try {
 
         // Registration
         array('GET|POST', '/admin/register', function (){require 'public/controllers/user/Register.php';}, 'register'),
+        array('GET|POST', '/admin/mfa', function (){require 'public/controllers/user/MFA.php';}, 'mfa'),
     ));
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
 }
 
+// Logged-in only
 if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
         $router->addRoutes(array(
             array('GET', '/admin/dashboard', function () {require 'public/controllers/admin/Dashboard.php';}, 'dashboard'),
             array('GET|POST', '/admin/categories', function () {require 'public/controllers/admin/Categories.php';}, 'categories'),
             array('GET|POST', '/admin/posts', function () {require 'public/controllers/admin/Posts.php';}, 'posts'),
+            array('GET|POST', '/admin/editor', function () {require 'public/controllers/admin/Editor.php';}, 'editor'),
         ));
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());

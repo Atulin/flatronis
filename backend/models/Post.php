@@ -92,6 +92,74 @@ class Post
         return $posts;
     }
 
+
+    /**
+     *
+     */
+    public function Add() {
+        $dbh = Database::Get();
+        $sql = 'INSERT INTO `posts` (id, title, author, date, category, body)
+                VALUES (:id, :title, :author, :date, :category, :body)';
+
+        $sth = $dbh->prepare($sql);
+
+        $date = $this->date->format('Y-m-d H:i:s');
+        $sth->bindParam(':id',      $this->id,          PDO::PARAM_INT);
+        $sth->bindParam(':title',   $this->title,       PDO::PARAM_STR);
+        $sth->bindParam(':author',  $this->author->id,  PDO::PARAM_INT);
+        $sth->bindParam(':date',    $date,              PDO::PARAM_STR);
+        $sth->bindParam(':category',$this->category->id,PDO::PARAM_INT);
+        $sth->bindParam(':body',    $this->body,        PDO::PARAM_STR);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param int $id
+     */
+    public static function Delete(int $id) {
+        $dbh = Database::Get();
+        $sql = 'DELETE FROM `posts` WHERE `id` = :id';
+        $sth = $dbh->prepare($sql);
+        $sth->bindParam(':id', $id, PDO::PARAM_INT);
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     *
+     */
+    public function Update() {
+        $dbh = Database::Get();
+        $sql = 'UPDATE `posts`
+                SET `title` = :title, `author` = :author, `date` = :date, `category` =:category, `body` = :body
+                WHERE `id` = :id';
+
+        $sth = $dbh->prepare($sql);
+
+        $date = $this->date->format('Y-m-d H:i:s');
+        $sth->bindParam(':id',      $this->id,          PDO::PARAM_INT);
+        $sth->bindParam(':title',   $this->title,       PDO::PARAM_STR);
+        $sth->bindParam(':author',  $this->author->id,  PDO::PARAM_INT);
+        $sth->bindParam(':date',    $date,              PDO::PARAM_STR);
+        $sth->bindParam(':category',$this->category->id,PDO::PARAM_INT);
+        $sth->bindParam(':body',    $this->body,        PDO::PARAM_STR);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+
     /**
      * @param array $post
      * @return Post

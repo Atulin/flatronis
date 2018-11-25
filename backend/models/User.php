@@ -10,12 +10,12 @@ require_once __DIR__.'/Database.php';
 
 class User
 {
-    private $id;
-    private $name;
-    private $email;
-    private $password;
-    private $mfa;
-    private $device;
+    public $id;
+    public $name;
+    public $email;
+    public $password;
+    public $mfa;
+    public $device;
 
     /**
      * User constructor.
@@ -36,103 +36,6 @@ class User
         $this->device = $device;
     }
 
-    //region Getters & Setters
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMfa()
-    {
-        return $this->mfa;
-    }
-
-    /**
-     * @param mixed $mfa
-     */
-    public function setMfa($mfa)
-    {
-        $this->mfa = $mfa;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDevice()
-    {
-        return $this->device;
-    }
-
-    /**
-     * @param mixed $device
-     */
-    public function setDevice($device)
-    {
-        $this->device = $device;
-    }
-    //endregion
 
     /**
      * @param int $id
@@ -223,6 +126,31 @@ class User
         $dbh = Database::Get();
         $sql = 'INSERT INTO `users` (id, name, email, password, `2fa`, device)
                 VALUES (:id, :name, :email, :pass, :mfa, :device)';
+
+        $sth = $dbh->prepare($sql);
+
+        $sth->bindParam(':id',     $this->id,       PDO::PARAM_INT);
+        $sth->bindParam(':name',   $this->name,     PDO::PARAM_STR);
+        $sth->bindParam(':email',  $this->email,    PDO::PARAM_STR);
+        $sth->bindParam(':pass',   $this->password, PDO::PARAM_STR);
+        $sth->bindParam(':mfa',    $this->mfa,      PDO::PARAM_STR);
+        $sth->bindParam(':device', $this->device,   PDO::PARAM_STR);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     *
+     */
+    public function Modify() {
+        $dbh = Database::Get();
+        $sql = 'UPDATE `users`
+                SET `name` = :name, `email` = :email, `password` = :pass, `2fa` = :mfa, `device` = :device
+                WHERE `id` = :id';
 
         $sth = $dbh->prepare($sql);
 

@@ -28,14 +28,11 @@ try {
 
 // Register
 if (!empty($_POST) && isset($_POST)) {
+
     // Verify captcha
     $recaptcha = new \ReCaptcha\ReCaptcha($_ENV['CAPTCHA_S']);
     $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
     if ($resp->isSuccess()) {
-
-        // Verify 2FA
-        $result = $tfa->verifyCode($_SESSION['secret'], $_POST['2fa']);
-        if ($result) {
 
             // Check XCSRF
             if ($_POST['token'] === $_SESSION['token']) {
@@ -43,38 +40,26 @@ if (!empty($_POST) && isset($_POST)) {
                     $_POST['login'],
                     $_POST['email'],
                     password_hash($_POST['password'], PASSWORD_BCRYPT),
-                    $_SESSION['secret'],
+                    '',
                     password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_BCRYPT)
                 );
                 $u->Add();
-            } else {
-                die('XCSRF triggered');
+                $_SESSION['name'] = $_POST['login'];
+                header('Location: /admin/mfa');
+                die();
+
             }
 
-        }
+        die('XCSRF triggered');
 
-    } else {
-        $errors = $resp->getErrorCodes();
-        echo var_export($errors, true);
     }
+
+    $errors = $resp->getErrorCodes();
+    echo var_export($errors, true);
 }
 
-
-// Set up 2FA secret
-try {
-    $secret = $tfa->createSecret();
-} catch (\RobThree\Auth\TwoFactorAuthException $e) {
-    $secret = null;
-    echo '<pre>'.var_export($e, true).'</pre>';
-}
-$_SESSION['secret'] = $secret;
 
 // Set up variables
-try {
-    $qr = $tfa->getQRCodeImageAsDataUri('Erronis Games', $secret);
-} catch (\RobThree\Auth\TwoFactorAuthException $e) {
-    echo '<pre>'.var_export($e, true).'</pre>';
-}
 
 // Token
 try {
@@ -89,7 +74,6 @@ $_SESSION['token'] = $token;
 try {
     // Render the actual Twig template
     echo $twig->render('user/register.twig', array(
-        'qr'      => $qr,
         'token'   => $token,
         'captcha' => $_ENV['CAPTCHA']
     ));

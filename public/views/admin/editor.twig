@@ -1,0 +1,104 @@
+{% extends'Master.twig' %}
+{% block title %}Erronis Games{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ asset('assets/js/sticker.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="{{ asset('assets/trumbowyg/ui/trumbowyg.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/trumbowyg/plugins/colors/ui/trumbowyg.colors.min.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    {% include '/includes/navbar.twig' %}
+
+    <div id="admin">
+
+        {% include '/admin/includes/sidebar.twig' %}
+
+        <form class="editor-container" method="post" action="/admin/editor{{ (post is empty) ? '' : '?id='~post.id }}">
+
+            <div class="editor">
+
+                <div class="inline field">
+                    <label for="title">Title</label>
+                    <input name="title" type="text" id="title" value="{{ post.title }}">
+                </div>
+
+                <textarea id="editor" name="body">{{ post.body }}</textarea>
+
+            </div>
+
+
+            <nav class="sidebar">
+
+                <div class="field">
+                    <label for="date">Date</label>
+                    <input name="date" type="text" id="date" value="{{ (post is empty) ? now : post.date|date("d.m.Y H:i:s") }}">
+                </div>
+
+                <div class="field">
+                    <label for="author">Author</label>
+                    <select name="author" id="author">
+                        {% for u in users %}
+                            <option value="{{ u.id }}" {{ u.id==post.author.id ? 'selected' : '' }}>{{ u.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="category">Category</label>
+                    <select name="category" id="category">
+                        {% for c in categories %}
+                            <option value="{{ c.id }}" {{ c.id==post.category.id ? 'selected' : '' }}>{{ c.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <input type="hidden" value="{{ token }}" name="token">
+                <input type="hidden" value="{{ post.id }}" name="id">
+
+                <div class="field">
+                    <input type="submit" class="button" value="Submit">
+                </div>
+
+            </nav>
+
+        </form>
+
+    </div>
+    {# Trumbowyg #}
+    <script src="{{ asset('assets/trumbowyg/trumbowyg.min.js') }}"></script>
+    {# Trumbowyg plugins #}
+    <script src="{{ asset('assets/trumbowyg/plugins/colors/trumbowyg.colors.min.js') }}"></script>
+    <script src="{{ asset('assets/trumbowyg/plugins/cleanpaste/trumbowyg.cleanpaste.min.js') }}"></script>
+    <script src="{{ asset('assets/trumbowyg/plugins/fontsize/trumbowyg.fontsize.min.js') }}"></script>
+    <script src="{{ asset('assets/trumbowyg/plugins/history/trumbowyg.history.min.js') }}"></script>
+    <script src="{{ asset('assets/trumbowyg/plugins/noembed/trumbowyg.noembed.min.js') }}"></script>
+    <script src="{{ asset('assets/trumbowyg/plugins/pasteembed/trumbowyg.pasteembed.min.js') }}"></script>
+    <script src="{{ asset('assets/trumbowyg/plugins/table/trumbowyg.table.min.js') }}"></script>
+
+    <script>
+        $('#editor').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['historyUndo', 'historyRedo'],
+                ['formatting', 'fontsize'],
+                ['foreColor', 'backColor'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['link'],
+                ['insertImage', 'noembed', 'table'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+            autogrow: true
+        });
+    </script>
+
+{% endblock %}
+
