@@ -16,6 +16,21 @@ $twig->addExtension(new Twig_Extensions_Extension_Text());
 $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
     return sprintf('/public/%s', ltrim($asset, '/'));
 }));
+$twig->addFilter(new Twig_SimpleFilter('break', function ($string) {
+    $out = explode('<p><!-- pagebreak --></p>', $string)[0];
+    $out = str_lreplace('</p>', ' ...</p>', $out);
+    return $out;
+}));
+
+function str_lreplace($search, $replace, $subject)
+{
+    $pos = strrpos($subject, $search);
+    if($pos !== false)
+    {
+        $subject = substr_replace($subject, $replace, $pos, strlen($search));
+    }
+    return $subject;
+}
 
 // Set up variables
 try {

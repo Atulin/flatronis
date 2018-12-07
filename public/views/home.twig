@@ -26,10 +26,12 @@
         {% for post in posts %}
 
         <article class="post">
-            <h2 class="title">{{ post.title }}</h2>
+            <a href="/post/{{ post.id }}/{{ post.title }}" class="title">
+                <h2 class="title">{{ post.title }}</h2>
+            </a>
             <hr class="fading text" data-content="{{ post.category.name }}">
             <div class="excerpt">
-                {{ post.body|truncate(1200, true)|raw }}
+                {{ post.body|break|raw }}
             </div>
             <a href="/post/{{ post.id }}/{{ post.title }}" class="read-more">Read More</a>
         </article>

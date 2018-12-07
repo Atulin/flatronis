@@ -170,7 +170,7 @@ class Post
             $post['id'],
             $post['title'],
             User::GetById($post['author']),
-            DateTime::createFromFormat('Y-m-d h:i:s', $post['date']),
+            DateTime::createFromFormat('Y-m-d H:i:s', $post['date']),
             Category::Get($post['category']),
             $post['body']
         );
