@@ -35,9 +35,9 @@ session_set_cookie_params(
 session_start();
 
 // Set up Whoops
-$whoops = new Run();
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
+//$whoops = new Run();
+//$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+//$whoops->register();
 
 // Set up routing
 $router = new AltoRouter();

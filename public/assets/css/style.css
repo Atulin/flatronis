@@ -439,6 +439,16 @@ form.editor-container {
   .button.full {
     width: calc(100% - 8px); }
 
+a {
+  color: #ff9543; }
+  a:hover {
+    color: #ff7810; }
+  a.title {
+    color: #fafafa;
+    text-decoration: none; }
+    a.title:hover {
+      color: #e1e1e1; }
+
 html, body {
   font-family: Montserrat, sans-serif;
   color: #fafafa;
