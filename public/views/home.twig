@@ -17,8 +17,10 @@
             <img src="{{ asset(p.file) }}"
                  class="rellax parallax-layer"
                  data-rellax-speed="{{ p.speed }}"
-                 alt="{{ p.alt }}"
-                 onerror="this.onerror=null; this.src='{{ asset(p.fallback) }}'">
+                 {% if p.fallback %}
+                 onerror="this.onerror=null; this.src='{{ asset(p.fallback) }}'"
+                 {% endif %}
+                 alt="{{ p.alt }}">
         {% endfor %}
         <div class="scroll-indicator" id="scroll-indicator"><i class="icon expand"></i></div>
     </div>
@@ -41,6 +43,13 @@
         </article>
 
         {% endfor %}
+
+        <div class="pagination">
+            {% if page != 1 %}
+            <a class="page-nav" href="/{{ (page - 1 == 1) ? '' : page - 1 }}">Previous</a>
+            {% endif %}
+            <a class="page-nav" href="/{{ page + 1 }}">Next</a>
+        </div>
 
     </div>
 
