@@ -75,6 +75,7 @@ try {
     // Render the actual Twig template
     echo $twig->render('user/register.twig', array(
         'token'   => $token,
+        'navbar'  => SETTINGS['navbar'],
         'captcha' => $_ENV['CAPTCHA']
     ));
 

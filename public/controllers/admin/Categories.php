@@ -75,9 +75,10 @@ $_SESSION['token'] = $token;
 try {
     // Render the actual Twig template
     echo $twig->render('admin/categories.twig', array(
-        'user' => $user,
+        'user'       => $user,
+        'navbar'     => SETTINGS['navbar'],
         'categories' => Category::GetAll(),
-        'token' => $token
+        'token'      => $token
     ));
 
 // Handle all possible errors

@@ -28,7 +28,8 @@ try {
 try {
     // Render the actual Twig template
     echo $twig->render('post.twig', array(
-        'post' => $post
+        'navbar' => SETTINGS['navbar'],
+        'post'   => $post
     ));
 
 

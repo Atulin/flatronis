@@ -4,7 +4,7 @@ $hpad: 8px
 
 nav.navbar
   display: flex
-  padding: 0 20px
+  justify-content: space-between
   width: 100vw
   height: $navh
   background: $medium
@@ -15,15 +15,36 @@ nav.navbar
     position: fixed
     top: 0
 
+  .main
+    display: flex
+    padding: 0
+    margin: 0 20px
+    width: auto
+    height: $navh
+
+  .social
+    display: flex
+    padding: 0
+    margin: 0 20px
+    flex-direction: row-reverse
+    width: auto
+    height: $navh
+
   .item
+    display: block
     padding: $vpad $hpad
     min-width: $navh
     line-height: $navh - 2*$vpad
+    height: $navh - 2*$vpad
     text-align: center
     background-color: $medium
     transition: background-color 0.5s
     color: $text
     text-decoration: none
+
+    img
+      display: block
+      height: $navh - 2*$vpad
 
     &:hover
       background-color: $light

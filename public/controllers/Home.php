@@ -44,6 +44,7 @@ try {
     // Render the actual Twig template
     echo $twig->render('home.twig', array(
         'posts'    => $posts,
+        'navbar'   => SETTINGS['navbar'],
         'parallax' => SETTINGS['parallax'],
         'page'     => $p ?? 1,
     ));
