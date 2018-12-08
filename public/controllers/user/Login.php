@@ -34,6 +34,8 @@ if (!empty($_POST) && isset($_POST)) {
     if ($result) {
 
         // Check XCSRF
+        echo '<pre>'.var_export($_POST, true).'</pre>';
+        echo '<pre>'.var_export($_SESSION, true).'</pre>';
         if ($_POST['token'] === $_SESSION['token']) {
             $_SESSION['userid'] = $u->id;
             header('Location: /');

@@ -1,7 +1,7 @@
 {% extends'Master.twig' %}
 {% block title %}Erronis Games{% endblock %}
 {% block description %}Official website of Erronis Games{% endblock %}
-{% block canonical %}https://kondracki.info{% endblock %}
+{% block canonical %}https://erronisgames.com{% endblock %}
 {% block thumbnail %}{% endblock %}
 {% block summary %}Official website of Erronis Games{% endblock %}
 
@@ -14,7 +14,11 @@
 
     <div class="parallax-container">
         {% for p in parallax %}
-            <img src="{{ asset(p.file) }}" class="rellax parallax-layer" data-rellax-speed="{{ p.speed }}" alt="{{ p.alt }}">
+            <img src="{{ asset(p.file) }}"
+                 class="rellax parallax-layer"
+                 data-rellax-speed="{{ p.speed }}"
+                 alt="{{ p.alt }}"
+                 onerror="this.onerror=null; this.src='{{ asset(p.fallback) }}'">
         {% endfor %}
         <div class="scroll-indicator" id="scroll-indicator"><i class="icon expand"></i></div>
     </div>
