@@ -25,7 +25,8 @@ $user = User::GetById($_SESSION['userid']);
 try {
     // Render the actual Twig template
     echo $twig->render('admin/dashboard.twig', array(
-        'user' => $user
+        'navbar'  => SETTINGS['navbar'],
+        'user'    => $user
     ));
 
 // Handle all possible errors

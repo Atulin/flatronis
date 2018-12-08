@@ -45,9 +45,10 @@ $_SESSION['token'] = $token;
 try {
     // Render the actual Twig template
     echo $twig->render('admin/posts.twig', array(
-        'user' => $user,
-        'token' => $token,
-        'posts' => Post::GetAll(),
+        'user'   => $user,
+        'navbar' => SETTINGS['navbar'],
+        'token'  => $token,
+        'posts'  => Post::GetAll(),
     ));
 
 // Handle all possible errors

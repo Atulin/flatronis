@@ -72,7 +72,8 @@ $_SESSION['token'] = $token;
 try {
     // Render the actual Twig template
     echo $twig->render('user/login.twig', array(
-        'token' => $token,
+        'token'  => $token,
+        'navbar' => SETTINGS['navbar'],
     ));
 
 // Handle all possible errors

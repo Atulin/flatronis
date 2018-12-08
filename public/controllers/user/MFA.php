@@ -73,8 +73,9 @@ try {
 try {
     // Render the actual Twig template
     echo $twig->render('user/mfa.twig', array(
-        'token' => $token,
-        'qr' => $qr,
+        'token'  => $token,
+        'navbar' => SETTINGS['navbar'],
+        'qr'     => $qr,
     ));
 
 // Handle all possible errors

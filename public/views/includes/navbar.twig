@@ -1,7 +1,24 @@
 <nav class="navbar" id="navbar">
-    <a href="/" class="item">
-        <i class="icon home"></i>
-        Home
-    </a>
-    <div class="item">{{ msg }}</div>
+    <div class="main">
+        <a href="/" class="item">
+            <i class="icon home"></i>
+            Home
+        </a>
+        {% for item in navbar.main %}
+            <a href="{{ item.link }}" class="item" referrerpolicy="no-referrer" target="_blank">
+                {{ item.text }}
+            </a>
+        {% endfor %}
+    </div>
+    <div class="social">
+        {% for item in navbar.social %}
+            <a href="{{ item.link }}" class="item" referrerpolicy="no-referrer" target="_blank">
+                <img src="{{ asset(item.image) }}"
+                     {% if item.fallback %}
+                         onerror="this.onerror=null; this.src='{{ asset(item.fallback) }}'"
+                     {% endif %}
+                     alt="{{ item.alt }}">
+            </a>
+        {% endfor %}
+    </div>
 </nav>

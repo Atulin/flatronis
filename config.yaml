@@ -8,7 +8,7 @@ posts: 10
 parallax:
   - file: assets/img/parallax/parallax-1.webp    # Base file
     fallback: assets/img/parallax/parallax-1.png # Fallback file in a more common format. Comment out if not needed
-    alt: logo lower layer                        # alternative text for accessibility
+    alt: logo lower layer                        # Alternative text for accessibility
     speed: -5.5                                  # Scrolling speed
   - file: assets/img/parallax/parallax-2.webp
     fallback: assets/img/parallax/parallax-2.png
@@ -18,3 +18,15 @@ parallax:
     fallback: assets/img/parallax/parallax-3.png
     alt: logo text
     speed: -2
+
+# Add buttons to your navbar
+navbar:
+  main:
+#    - text: My CV                               # Text to show on the button
+#      link: https://johnsmith.cv/my-cv.pdf      # Link
+
+  social:
+    - image: assets/img/social/twitter.webp    # Base file
+      fallback: assets/img/social/twitter.png  # Fallback file in a more common format. Comment out if not needed
+      alt: Twitter                             # Alternative text for accessibility
+      link: https://twitter.com                # Link

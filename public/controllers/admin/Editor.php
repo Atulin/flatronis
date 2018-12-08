@@ -67,6 +67,7 @@ try {
     echo $twig->render('admin/editor.twig', array(
         'user'       => $user,
         'token'      => $token,
+        'navbar'     => SETTINGS['navbar'],
         'now'        => date('d.m.Y H:i:s'),
         'users'      => User::GetAll(),
         'categories' => Category::GetAll(),
