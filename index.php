@@ -59,6 +59,7 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
 try {
     $router->addRoutes(array(
         array('GET', '/', function (){require 'public/controllers/Home.php';}, 'home'),
+        array('GET', '/[i:p]?', function ($p=1){$p; require 'public/controllers/Home.php';}, 'home-page'),
         array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require 'public/controllers/Post.php';}, 'post'),
 
         // Registration

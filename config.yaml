@@ -1,9 +1,15 @@
+# Domain of your blog
 domain: flatronis.test
+
+# How many posts per page do you want? Use 0 for infinity
+posts: 10
+
+# List layers of the parallax on home page
 parallax:
-  - file: assets/img/parallax/parallax-1.webp
-    fallback: assets/img/parallax/parallax-1.png
-    alt: logo lower layer
-    speed: -5.5
+  - file: assets/img/parallax/parallax-1.webp    # Base file
+    fallback: assets/img/parallax/parallax-1.png # Fallback file in a more common format. Comment out if not needed
+    alt: logo lower layer                        # alternative text for accessibility
+    speed: -5.5                                  # Scrolling speed
   - file: assets/img/parallax/parallax-2.webp
     fallback: assets/img/parallax/parallax-2.png
     alt: logo upper layer

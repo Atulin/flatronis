@@ -34,7 +34,7 @@ function str_lreplace($search, $replace, $subject)
 
 // Set up variables
 try {
-    $posts = Post::GetAll();
+    $posts = Post::GetAll(SETTINGS['posts'], SETTINGS['posts'] * (($p ?? 1) - 1));
 } catch (PDOException $e) {
     $posts[0]['body'] = $e;
 }
@@ -43,8 +43,9 @@ try {
 try {
     // Render the actual Twig template
     echo $twig->render('home.twig', array(
-        'posts' => $posts,
-        'parallax' => SETTINGS['parallax']
+        'posts'    => $posts,
+        'parallax' => SETTINGS['parallax'],
+        'page'     => $p ?? 1,
     ));
 
 
