@@ -2,7 +2,7 @@
 domain: flatronis.test
 
 # How many posts per page do you want? Use 0 for infinity
-posts: 10
+posts: 6
 
 # List layers of the parallax on home page
 parallax:
@@ -29,4 +29,4 @@ navbar:
     - image: assets/img/social/twitter.webp    # Base file
       fallback: assets/img/social/twitter.png  # Fallback file in a more common format. Comment out if not needed
       alt: Twitter                             # Alternative text for accessibility
-      link: https://twitter.com                # Link
+      link: https://twitter.com/ErronisGames                # Link

@@ -1,12 +1,9 @@
-const nav = document.querySelector('#navbar');
+const nav = document.getElementById('navbar');
 const navTop = nav.offsetTop;
 
 function stickyNavigation() {
-    // console.log('navTop = ' + navTop);
-    // console.log('scrollY = ' + window.scrollY);
 
     if (window.scrollY >= navTop) {
-        // nav offsetHeight = height of nav
         document.body.style.paddingTop = nav.offsetHeight + 'px';
         nav.classList.add('fixed');
         console.log("Navbar unstick: " + nav.classList);

@@ -15,11 +15,11 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Add Caching.
 <FilesMatch ".(ico|jpg|jpeg|png|gif|js|css|swf)$">
-    Header set Cache-Control "max-age=1800"
+    Header set Cache-Control "max-age=180000"
 </FilesMatch>
 
 # Prevent access to files
-<FilesMatch ".(php|htaccess|env)$" >
+<FilesMatch ".(php|htaccess|env|yaml)$" >
     Order Deny,Allow
     Deny from all
     Allow from 127.0.0.1
@@ -52,6 +52,7 @@ AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/xml
 AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE font/woff2
 AddOutputFilterByType DEFLATE application/xml
 AddOutputFilterByType DEFLATE application/xhtml+xml
 AddOutputFilterByType DEFLATE application/rss+xml
@@ -73,6 +74,7 @@ AddOutputFilterByType DEFLATE application/x-javascript
   # Fonts
   ExpiresByType font/ttf "access plus 1 year"
   ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
   ExpiresByType font/eot "access plus 1 year"
 
   # Video
