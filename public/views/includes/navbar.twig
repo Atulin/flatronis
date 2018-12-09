@@ -12,7 +12,7 @@
     </div>
     <div class="social">
         {% for item in navbar.social %}
-            <a href="{{ item.link }}" class="item" referrerpolicy="no-referrer" target="_blank">
+            <a href="{{ item.link }}" class="item" rel="noreferrer" target="_blank">
                 <img src="{{ asset(item.image) }}"
                      {% if item.fallback %}
                          onerror="this.onerror=null; this.src='{{ asset(item.fallback) }}'"

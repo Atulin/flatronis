@@ -4,46 +4,7 @@
 {% block scripts %}
     <script defer src="{{ asset('assets/js/sticker.min.js') }}"></script>
     <script src="{{ asset('assets/tinymce/tinymce.min.js') }}"></script>
-    <script>
-        tinymce.init({
-            selector: '#editor',
-            skin: 'dark',
-
-            plugins: "autoresize textcolor colorpicker hr link nonbreaking anchor contextmenu image pagebreak " +
-                     "lists preview searchreplace table wordcount autolink code fullscreen media spellchecker",
-
-            menubar: "file edit view insert format",
-
-            toolbar: "removeformat | styleselect fontsizeselect forecolor | bold italic underline strikethrough | alignleft aligncenter alignjustify | " +
-                     "outdent indent| numlist bullist | link image media blockquote | hr pagebreak | fullscreen preview spellchecker",
-
-            branding: false,
-            default_link_target: "_blank",
-            link_assume_external_targets: true,
-
-            target_list: [
-                {title: 'None', value: ''},
-                {title: 'Same page', value: '_self'},
-                {title: 'New page', value: '_blank'},
-                {title: 'Lightbox', value: '_lightbox'}
-            ],
-
-            contextmenu_never_use_native: true,
-
-            image_caption: true,
-            image_class_list: [
-                {title: 'Fluid', value: 'fluid image'},
-                {title: 'Centered', value: 'centered image'},
-                {title: 'Rounded', value: 'rounded image'},
-                {title: 'Circular', value: 'circular image'}
-            ],
-
-            plugin_preview_height: 600,
-            plugin_preview_width: 1000,
-
-            fontsize_formats: "8pt 10pt 11pt 12pt 14pt 18pt 24pt"
-        });
-    </script>
+    <script src="{{ asset('assets/js/tinymce.min.js') }}"></script>
 {% endblock %}
 
 {% block body %}

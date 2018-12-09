@@ -1,4 +1,4 @@
-const ind = document.querySelector('.scroll-indicator');
+const ind = document.getElementById('scroll-indicator');
 
 function scrollIndicator() {
     if (window.scrollY >= 50) {
