@@ -29,6 +29,7 @@ try {
     // Render the actual Twig template
     echo $twig->render('post.twig', array(
         'navbar' => SETTINGS['navbar'],
+        'analytics'=> $_ENV['ANALYTICS'],
         'post'   => $post
     ));
 

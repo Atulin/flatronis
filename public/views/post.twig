@@ -5,7 +5,10 @@
 {% block thumbnail %}{% endblock %}
 {% block summary %}{{ post.body|striptags|truncate(200) }}{% endblock %}
 
-{% block scripts %}
+{% block scripts %}{% endblock %}
+
+{% block analytics %}
+    {{ parent() }}
 {% endblock %}
 
 {% block body %}
