@@ -45,6 +45,7 @@ try {
     echo $twig->render('home.twig', array(
         'posts'    => $posts,
         'navbar'   => SETTINGS['navbar'],
+        'analytics'=> $_ENV['ANALYTICS'],
         'parallax' => SETTINGS['parallax'],
         'page'     => $p ?? 1,
     ));
