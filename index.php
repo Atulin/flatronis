@@ -58,13 +58,13 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
 // Map routes
 try {
     $router->addRoutes(array(
-        array('GET', '/', function (){require 'public/controllers/Home.php';}, 'home'),
-        array('GET', '/[i:p]?', function ($p=1){$p; require 'public/controllers/Home.php';}, 'home-page'),
-        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require 'public/controllers/Post.php';}, 'post'),
+        array('GET', '/', function (){require __DIR__.'/public/controllers/Home.php';}, 'home'),
+        array('GET', '/[i:p]?', function ($p=1){$p; require __DIR__.'/public/controllers/Home.php';}, 'home-page'),
+        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require __DIR__.'/public/controllers/Post.php';}, 'post'),
 
         // Registration
-        array('GET|POST', '/admin/register', function (){require 'public/controllers/user/Register.php';}, 'register'),
-        array('GET|POST', '/admin/mfa', function (){require 'public/controllers/user/MFA.php';}, 'mfa'),
+        array('GET|POST', '/admin/register', function (){require __DIR__.'/public/controllers/user/Register.php';}, 'register'),
+        array('GET|POST', '/admin/mfa', function (){require __DIR__.'/public/controllers/user/MFA.php';}, 'mfa'),
     ));
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
@@ -74,10 +74,10 @@ try {
 if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
         $router->addRoutes(array(
-            array('GET', '/admin/dashboard', function () {require 'public/controllers/admin/Dashboard.php';}, 'dashboard'),
-            array('GET|POST', '/admin/categories', function () {require 'public/controllers/admin/Categories.php';}, 'categories'),
-            array('GET|POST', '/admin/posts', function () {require 'public/controllers/admin/Posts.php';}, 'posts'),
-            array('GET|POST', '/admin/editor', function () {require 'public/controllers/admin/Editor.php';}, 'editor'),
+            array('GET', '/admin', function () {require __DIR__.'/public/controllers/admin/Dashboard.php';}, 'dashboard'),
+            array('GET|POST', '/admin/categories', function () {require __DIR__.'/public/controllers/admin/Categories.php';}, 'categories'),
+            array('GET|POST', '/admin/posts', function () {require __DIR__.'/public/controllers/admin/Posts.php';}, 'posts'),
+            array('GET|POST', '/admin/editor', function () {require __DIR__.'/public/controllers/admin/Editor.php';}, 'editor'),
         ));
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
@@ -86,7 +86,7 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
         $router->addRoutes(array(
             // Login
-            array('GET|POST', '/admin/login', function () {require 'public/controllers/user/Login.php';}, 'login'),));
+            array('GET|POST', '/admin/login', function () {require __DIR__.'/public/controllers/user/Login.php';}, 'login'),));
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
     }

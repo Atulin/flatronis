@@ -11,6 +11,8 @@
 
 {% block analytics %}
     {{ parent() }}
+    <script src="{{ asset('assets/js/rellax.min.js') }}"></script>
+    <script defer src="{{ asset('assets/js/scroll-indicator.js') }}"></script>
 {% endblock %}
 
 {% block body %}

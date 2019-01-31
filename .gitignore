@@ -1,3 +1,5 @@
 .idea/
-.env
 /bfg.jar
+/.env
+/phpdoc.phar
+/phpdoc.phar.pubkey

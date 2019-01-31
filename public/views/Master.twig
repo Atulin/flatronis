@@ -33,17 +33,21 @@
     <meta name="twitter:site" content="@ErronisGames">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
-    <script async src="{{ asset('assets/js/sticker.js') }}"></script>
 
     {% block scripts %}
-    <script src="{{ asset('assets/js/rellax.min.js') }}"></script>
-    <script async src="{{ asset('assets/js/scroll-indicator.js') }}"></script>
+        <script defer src="{{ asset('assets/js/sticker.js') }}"></script>
     {% endblock %}
 </head>
 
 <body>
 
-{% block body %}{% endblock %}
+    {% block body %}{% endblock %}
+
+    <footer>
+        {% block footer %}
+            &copy; Copyright {{ "now"|date("Y") }} by <a href="http://domain.invalid/">Erronis Games</a>.
+        {% endblock %}
+    </footer>
 
 </body>
 </html>

@@ -1,5 +1,8 @@
 # Domain of your blog
-domain: flatronis.test
+domain: erronisgames.com
+
+# Name of your blog
+name: Erronis Games
 
 # How many posts per page do you want? Use 0 for infinity
 posts: 6
@@ -28,5 +31,9 @@ navbar:
   social:
     - image: assets/img/social/twitter.webp    # Base file
       fallback: assets/img/social/twitter.png  # Fallback file in a more common format. Comment out if not needed
-      alt: Twitter                             # Alternative text for accessibility
-      link: https://twitter.com/ErronisGames                # Link
+      alt: Twitter bird logo                   # Alternative text for accessibility
+      link: https://twitter.com/ErronisGames   # Link
+    - image: assets/img/social/youtube.webp
+      fallback: assets/img/social/youtube.png
+      alt: YouTube button logo
+      link: https://twitter.com/ErronisGames
