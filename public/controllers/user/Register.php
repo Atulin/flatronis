@@ -34,21 +34,21 @@ if (!empty($_POST) && isset($_POST)) {
     $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
     if ($resp->isSuccess()) {
 
-            // Check XCSRF
-            if ($_POST['token'] === $_SESSION['token']) {
-                $u = new User(0,
-                    $_POST['login'],
-                    $_POST['email'],
-                    password_hash($_POST['password'], PASSWORD_ARGON2I),
-                    '',
-                    password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_ARGON2I)
-                );
-                $u->Add();
-                $_SESSION['name'] = $_POST['login'];
-                header('Location: /admin/mfa');
-                die();
+        // Check XCSRF
+        if ($_POST['token'] === $_SESSION['token']) {
+            $u = new User(0,
+                $_POST['login'],
+                $_POST['email'],
+                password_hash($_POST['password'], PASSWORD_ARGON2I),
+                '',
+                password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_ARGON2I)
+            );
+            $u->Add();
+            $_SESSION['name'] = $_POST['login'];
+            header('Location: /admin/mfa');
+            die();
 
-            }
+        }
 
         die('XCSRF triggered');
 

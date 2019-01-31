@@ -3,3 +3,4 @@
 /.env
 /phpdoc.phar
 /phpdoc.phar.pubkey
+*.css.map
