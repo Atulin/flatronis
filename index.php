@@ -6,10 +6,17 @@
  * Time: 05:33
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/backend/models/Post.php';
-require_once __DIR__ . '/backend/models/Category.php';
-require_once __DIR__ . '/backend/models/User.php';
+// Define directories
+define('ROOT', __DIR__);
+define('MODELS', ROOT.'/backend/models');
+define('ASSETS', ROOT.'/public/assets');
+define('CONTROLLERS', ROOT.'/public/controllers');
+define('VIEWS', ROOT.'/public/views');
+
+require_once ROOT . '/vendor/autoload.php';
+require_once ROOT . '/backend/models/Post.php';
+require_once ROOT . '/backend/models/Category.php';
+require_once ROOT . '/backend/models/User.php';
 
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Yaml\Yaml;
@@ -35,16 +42,16 @@ session_set_cookie_params(
 session_start();
 
 // Set up Whoops
-//$whoops = new Run();
-//$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-//$whoops->register();
+$whoops = new Run();
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
 // Set up routing
 $router = new AltoRouter();
 
 // Load .env file
 $dotenv = new Dotenv();
-$dotenv->load(__DIR__.'/.env');
+$dotenv->load(ROOT.'/.env');
 
 // Check user status
 $ipcheck = false;
@@ -58,13 +65,13 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
 // Map routes
 try {
     $router->addRoutes(array(
-        array('GET', '/', function (){require __DIR__.'/public/controllers/Home.php';}, 'home'),
-        array('GET', '/[i:p]?', function ($p=1){$p; require __DIR__.'/public/controllers/Home.php';}, 'home-page'),
-        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require __DIR__.'/public/controllers/Post.php';}, 'post'),
+        array('GET', '/', function (){require CONTROLLERS.'/Home.php';}, 'home'),
+        array('GET', '/[i:p]?', function ($p=1){$p; require CONTROLLERS.'/Home.php';}, 'home-page'),
+        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require CONTROLLERS.'/Post.php';}, 'post'),
 
         // Registration
-        array('GET|POST', '/admin/register', function (){require __DIR__.'/public/controllers/user/Register.php';}, 'register'),
-        array('GET|POST', '/admin/mfa', function (){require __DIR__.'/public/controllers/user/MFA.php';}, 'mfa'),
+        array('GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'),
+        array('GET|POST', '/admin/mfa', function (){require CONTROLLERS.'/user/MFA.php';}, 'mfa'),
     ));
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
@@ -74,10 +81,10 @@ try {
 if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
         $router->addRoutes(array(
-            array('GET', '/admin', function () {require __DIR__.'/public/controllers/admin/Dashboard.php';}, 'dashboard'),
-            array('GET|POST', '/admin/categories', function () {require __DIR__.'/public/controllers/admin/Categories.php';}, 'categories'),
-            array('GET|POST', '/admin/posts', function () {require __DIR__.'/public/controllers/admin/Posts.php';}, 'posts'),
-            array('GET|POST', '/admin/editor', function () {require __DIR__.'/public/controllers/admin/Editor.php';}, 'editor'),
+            array('GET', '/admin', function () {require CONTROLLERS.'/admin/Dashboard.php';}, 'dashboard'),
+            array('GET|POST', '/admin/categories', function () {require CONTROLLERS.'/admin/Categories.php';}, 'categories'),
+            array('GET|POST', '/admin/posts', function () {require CONTROLLERS.'/admin/Posts.php';}, 'posts'),
+            array('GET|POST', '/admin/editor', function () {require CONTROLLERS.'/admin/Editor.php';}, 'editor'),
         ));
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
@@ -86,7 +93,7 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
         $router->addRoutes(array(
             // Login
-            array('GET|POST', '/admin/login', function () {require __DIR__.'/public/controllers/user/Login.php';}, 'login'),));
+            array('GET|POST', '/admin/login', function () {require CONTROLLERS.'/user/Login.php';}, 'login'),));
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
     }

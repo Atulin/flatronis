@@ -6,10 +6,8 @@
  * Time: 03:24
  */
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(
-        dirname(__DIR__, 2) . '/views',
-        dirname(__DIR__, 2) . '/assets')
-);
+$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
 $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
@@ -29,15 +27,22 @@ if (!empty($_POST) && isset($_POST)) {
     // Get user
     $u = User::GetByName($_POST['login']);
 
+    // Check device
+    $device = password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_ARGON2I);
+    $same_device = $device === $u->device;
+
     // Verify 2FA
-    $result = $tfa->verifyCode($u->mfa, $_POST['2fa']);
-    if ($result) {
+    $result = $tfa->verifyCode($u->mfa, $_POST['2fa'] ?? null);
+
+    echo '<pre>'.var_export($result, true).'</pre>';
+    echo '<pre>'.var_export($same_device, true).'</pre>';
+
+    if ($result || $same_device) {
 
         // Check XCSRF
-        echo '<pre>'.var_export($_POST, true).'</pre>';
-        echo '<pre>'.var_export($_SESSION, true).'</pre>';
         if ($_POST['token'] === $_SESSION['token']) {
             $_SESSION['userid'] = $u->id;
+            $u->UpdateDevice($device);
             header('Location: /');
             die();
         }
@@ -45,9 +50,6 @@ if (!empty($_POST) && isset($_POST)) {
         die('XCSRF triggered');
 
     }
-
-    echo var_export($result, true);
-
 }
 
 // Set up 2FA secret

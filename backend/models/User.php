@@ -198,6 +198,29 @@ class User
     }
 
     /**
+     * Updates the device hash for the user
+     * @param string $device Device hash
+     */
+    public function UpdateDevice(string $device): void
+    {
+        $dbh = Database::Get();
+        $sql = 'UPDATE `users`
+                SET `device` = :device
+                WHERE `id` = :id';
+
+        $sth = $dbh->prepare($sql);
+
+        $sth->bindParam(':id',     $this->id, PDO::PARAM_INT);
+        $sth->bindParam(':device', $device);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Transforms an associative array into an User object
      * @param array $user Associative array representing the User object
      * @return User Returns an User object
