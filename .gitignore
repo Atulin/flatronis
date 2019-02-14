@@ -5,3 +5,4 @@
 /phpdoc.phar.pubkey
 *.css.map
 /vendor/
+/node_modules/

@@ -14,11 +14,18 @@ define('CONTROLLERS', ROOT.'/public/controllers');
 define('VIEWS', ROOT.'/public/views');
 
 require_once ROOT . '/vendor/autoload.php';
-require_once MODELS . '/Database.php';
-require_once MODELS . '/Post.php';
-require_once MODELS . '/Category.php';
-require_once MODELS . '/User.php';
 
+// Autoload classes
+spl_autoload_register(function ($class) {
+    $class_arr = explode('\\', $class);
+    $file = MODELS . '/' . array_pop($class_arr).'.php';
+    if (file_exists($file)) {
+        require $file;
+        return true;
+    }
+    echo "<pre>{$class} could not be loaded</pre>";
+    return false;
+});
 
 use App\Models\User;
 use Symfony\Component\Dotenv\Dotenv;
