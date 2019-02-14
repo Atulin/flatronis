@@ -1201,7 +1201,7 @@ class Klein
             EXTR_OVERWRITE
         );
 
-        return $this->respond('POST', $path, $callback);
+        return $this->respond('Models\Post', $path, $callback);
     }
 
     /**

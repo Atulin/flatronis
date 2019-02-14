@@ -861,21 +861,21 @@ class RoutingTest extends AbstractKleinTest
         $this->expectOutputString('yup!123');
 
         $this->klein_app->respond(
-            'POST',
+            'Models\Post',
             null,
             function ($request) {
                 echo 'yup!';
             }
         );
         $this->klein_app->respond(
-            'POST',
+            'Models\Post',
             '*',
             function ($request) {
                 echo '1';
             }
         );
         $this->klein_app->respond(
-            'POST',
+            'Models\Post',
             '/',
             function ($request) {
                 echo '2';
@@ -888,7 +888,7 @@ class RoutingTest extends AbstractKleinTest
         );
 
         $this->klein_app->dispatch(
-            MockRequestFactory::create('/', 'POST')
+            MockRequestFactory::create('/', 'Models\Post')
         );
     }
 
@@ -1012,14 +1012,14 @@ class RoutingTest extends AbstractKleinTest
             }
         );
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             null,
             function () {
                 echo 'e';
             }
         );
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             '/endpoint',
             function () {
                 echo 'f';
@@ -1236,7 +1236,7 @@ class RoutingTest extends AbstractKleinTest
     public function test405DefaultRequest()
     {
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             '/',
             function () {
                 echo 'fail';
@@ -1254,7 +1254,7 @@ class RoutingTest extends AbstractKleinTest
     public function testNo405OnNonMatchRoutes()
     {
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             null,
             function () {
                 echo 'this shouldn\'t cause a 405 since this route doesn\'t count as a match anyway';
@@ -1287,7 +1287,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             '/sure',
             function () {
                 echo 'fail';
@@ -1312,7 +1312,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->assertCount(2, $result_array);
         $this->assertContains('GET', $result_array);
-        $this->assertContains('POST', $result_array);
+        $this->assertContains('Models\Post', $result_array);
         $this->assertSame(405, $this->klein_app->response()->code());
     }
 
@@ -1335,7 +1335,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             '/sure',
             function () {
                 echo 'fail';
@@ -1353,7 +1353,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->assertCount(2, $result_array);
         $this->assertContains('GET', $result_array);
-        $this->assertContains('POST', $result_array);
+        $this->assertContains('Models\Post', $result_array);
         $this->assertSame(405, $this->klein_app->response()->code());
     }
 
@@ -1365,7 +1365,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             '/',
             function () {
                 echo 'fail';
@@ -1401,7 +1401,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
         $this->klein_app->respond(
-            array('GET', 'POST'),
+            array('GET', 'Models\Post'),
             '/',
             function () {
                 echo 'fail';
@@ -1461,7 +1461,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
         $this->klein_app->respond(
-            'POST',
+            'Models\Post',
             '/',
             function () {
                 echo 'POST!';
@@ -1505,7 +1505,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
         $this->klein_app->respond(
-            'POST',
+            'Models\Post',
             '/',
             function ($request, $response) use ($test_strings, &$test_result) {
                 $test_result .= 'nope';
@@ -1730,7 +1730,7 @@ class RoutingTest extends AbstractKleinTest
         );
 
         $this->klein_app->respond(
-            'POST',
+            'Models\Post',
             '/steez',
             function ($a, $b, $c, $d, $klein_app) {
                 $klein_app->skipThis();
@@ -1746,7 +1746,7 @@ class RoutingTest extends AbstractKleinTest
         );
 
         $this->klein_app->dispatch(
-            MockRequestFactory::create('/steez', 'POST')
+            MockRequestFactory::create('/steez', 'Models\Post')
         );
     }
 
@@ -1996,7 +1996,7 @@ class RoutingTest extends AbstractKleinTest
         );
 
         $this->klein_app->dispatch(
-            MockRequestFactory::create('/', 'POST')
+            MockRequestFactory::create('/', 'Models\Post')
         );
     }
 

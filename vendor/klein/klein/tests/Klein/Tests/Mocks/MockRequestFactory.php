@@ -62,7 +62,7 @@ class MockRequestFactory
 
         // Set our parameters
         switch ($req_method) {
-            case 'POST':
+            case 'Models\Post':
             case 'PUT':
             case 'PATCH':
             case 'DELETE':

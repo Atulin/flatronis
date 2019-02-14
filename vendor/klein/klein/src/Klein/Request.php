@@ -437,7 +437,7 @@ class Request
         $method = $this->server->get('REQUEST_METHOD', 'GET');
 
         // Override
-        if ($allow_override && $method === 'POST') {
+        if ($allow_override && $method === 'Models\Post') {
             // For legacy servers, override the HTTP method with the X-HTTP-Method-Override header or _method parameter
             if ($this->server->exists('X_HTTP_METHOD_OVERRIDE')) {
                 $method = $this->server->get('X_HTTP_METHOD_OVERRIDE', $method);

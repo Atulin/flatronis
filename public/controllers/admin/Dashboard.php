@@ -7,7 +7,9 @@
  */
 
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+use App\Models\User;
+
+$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
 
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -22,10 +24,10 @@ $user = User::GetById($_SESSION['userid']);
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('admin/dashboard.twig', array(
+    echo $twig->render('admin/dashboard.twig', [
         'navbar'  => SETTINGS['navbar'],
-        'user'    => $user
-    ));
+        'Models\User' => $user
+    ]);
 
 // Handle all possible errors
 } catch (Twig_Error $e) {

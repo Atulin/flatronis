@@ -7,7 +7,11 @@
  */
 
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\User;
+
+$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
 
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -21,23 +25,23 @@ if (!empty($_POST['token'])) {
     // Check XCSRF
     if ($_POST['token'] === $_SESSION['token']) {
 
-        if (!empty($_POST['id'])) {
+        if (empty($_POST['id'])) {
+            $p = new Post(0,
+                $_POST['title'],
+                User::GetById($_POST['author']),
+                DateTime::createFromFormat('d.m.Y H:i:s', $_POST['date']),
+                Category::Get($_POST['Models\Category']),
+                $_POST['body']);
+            $p->Add();
+        } else {
             $p = new Post(
                 $_POST['id'],
                 $_POST['title'],
                 User::GetById($_POST['author']),
                 DateTime::createFromFormat('d.m.Y H:i:s', $_POST['date']),
-                Category::Get($_POST['category']),
+                Category::Get($_POST['Models\Category']),
                 $_POST['body']);
             $p->Update();
-        } else {
-            $p = new Post(0,
-                $_POST['title'],
-                User::GetById($_POST['author']),
-                DateTime::createFromFormat('d.m.Y H:i:s', $_POST['date']),
-                Category::Get($_POST['category']),
-                $_POST['body']);
-            $p->Add();
         }
 
     } else {
@@ -62,15 +66,15 @@ $_SESSION['token'] = $token;
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('admin/editor.twig', array(
-        'user'       => $user,
+    echo $twig->render('admin/editor.twig', [
+        'Models\User' => $user,
         'token'      => $token,
         'navbar'     => SETTINGS['navbar'],
         'now'        => date('d.m.Y H:i:s'),
         'users'      => User::GetAll(),
         'categories' => Category::GetAll(),
-        'post'       => $post
-    ));
+        'Models\Post' => $post
+    ]);
 
 // Handle all possible errors
 } catch (Twig_Error $e) {

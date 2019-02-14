@@ -7,7 +7,9 @@
  */
 
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+use App\Models\Post;
+
+$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
 
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -20,6 +22,12 @@ $twig->addFilter(new Twig_SimpleFilter('break', function ($string) {
     return $out;
 }));
 
+/**
+ * @param $search
+ * @param $replace
+ * @param $subject
+ * @return mixed
+ */
 function str_lreplace($search, $replace, $subject)
 {
     $pos = strrpos($subject, $search);
@@ -40,13 +48,13 @@ try {
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('home.twig', array(
+    echo $twig->render('home.twig', [
         'posts'    => $posts,
         'navbar'   => SETTINGS['navbar'],
         'analytics'=> $_ENV['ANALYTICS'],
         'parallax' => SETTINGS['parallax'],
-        'page'     => $p ?? 1,
-    ));
+        'page'     => $p ?? 1
+    ]);
 
 
 // Handle all possible errors

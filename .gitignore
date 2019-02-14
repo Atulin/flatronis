@@ -4,3 +4,4 @@
 /phpdoc.phar
 /phpdoc.phar.pubkey
 *.css.map
+/vendor/

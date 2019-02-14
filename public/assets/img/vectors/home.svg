@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <g fill="none" stroke="#000" stroke-linecap="square" stroke-linejoin="round">
-    <path stroke-width="1.565" d="M32.156 8.451L1.554 30.234h9.165v25.222h25.694V37.783h10.93v17.673h6.654V30.234h8.761z" paint-order="markers fill stroke"/>
-    <path stroke-width="1.687" d="M16.013 33.439h13.229v13.796h-13.23z" paint-order="markers fill stroke"/>
+    <path stroke-width="1.565" d="M32.156 8.451L1.554 30.234h9.165v25.222h25.694V37.783h10.93v17.673h6.654V30.234h8.761z"/>
+    <path stroke-width="1.687" d="M16.013 33.439h13.229v13.796h-13.23z"/>
   </g>
 </svg>

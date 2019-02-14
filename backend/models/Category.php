@@ -6,7 +6,10 @@
  * Time: 05:10
  */
 
-require_once __DIR__.'/Database.php';
+namespace App\Models;
+
+use PDO;
+use PDOException;
 
 /**
  * Class Category
@@ -47,7 +50,7 @@ class Category
      * @param int $id ID of the desired Category
      * @return Category Returns a Category object
      */
-    public static function Get(int $id): \Category
+    public static function Get(int $id): Category
     {
         $dbh = Database::Get();
         $sql = 'SELECT * FROM `categories`
@@ -70,8 +73,8 @@ class Category
 
     /**
      * Gets a selected amount of Categories from the database
-     * @param int $limit[optional] How many results to return
-     * @param int $offset[optional] How offset the results should be
+     * @param int $limit [optional] How many results to return
+     * @param int $offset [optional] How offset the results should be
      * @return array Returns an array of Category objects
      */
     public static function GetAll(int $limit = null, int $offset = null): array
@@ -83,8 +86,8 @@ class Category
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindValue(':l', $limit  ?: 10000, PDO::PARAM_INT);
-        $sth->bindValue(':o', $offset ?: 0,     PDO::PARAM_INT);
+        $sth->bindValue(':l', $limit ?: 10000, PDO::PARAM_INT);
+        $sth->bindValue(':o', $offset ?: 0, PDO::PARAM_INT);
 
         try {
             $sth->execute();
@@ -111,7 +114,7 @@ class Category
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':id',   $this->id, PDO::PARAM_INT);
+        $sth->bindParam(':id', $this->id, PDO::PARAM_INT);
         $sth->bindParam(':name', $this->name);
         $sth->bindParam(':desc', $this->description);
 
@@ -153,7 +156,7 @@ class Category
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':id',   $this->id,PDO::PARAM_INT);
+        $sth->bindParam(':id', $this->id, PDO::PARAM_INT);
         $sth->bindParam(':name', $this->name);
         $sth->bindParam(':desc', $this->description);
 
@@ -170,7 +173,7 @@ class Category
      * @param array $category Associative array representing the Category object
      * @return Category Returns a Category object
      */
-    private static function Build(array $category): \Category
+    private static function Build(array $category): Category
     {
         return new Category(
             $category['id'],

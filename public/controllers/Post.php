@@ -7,7 +7,9 @@
  */
 
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+use App\Models\Post;
+
+$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
 
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -25,11 +27,11 @@ try {
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('post.twig', array(
+    echo $twig->render('post.twig', [
         'navbar' => SETTINGS['navbar'],
         'analytics'=> $_ENV['ANALYTICS'],
-        'post'   => $post
-    ));
+        'Models\Post' => $post
+    ]);
 
 
 // Handle all possible errors

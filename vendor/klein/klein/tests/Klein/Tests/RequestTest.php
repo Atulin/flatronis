@@ -24,7 +24,7 @@ class RequestTest extends AbstractKleinTest
     {
         // Test data
         $params_get  = array('get');
-        $params_post = array('post');
+        $params_post = array('Models\Post');
         $cookies     = array('cookies');
         $server      = array('server');
         $files       = array('files');
@@ -56,7 +56,7 @@ class RequestTest extends AbstractKleinTest
 
         // Test data
         $_GET       = array_merge($_GET, array($key => 'get'));
-        $_POST      = array_merge($_POST, array($key => 'post'));
+        $_POST      = array_merge($_POST, array($key => 'Models\Post'));
         $_COOKIE    = array_merge($_COOKIE, array($key => 'cookies'));
         $_SERVER    = array_merge($_SERVER, array($key => 'server'));
         $_FILES     = array_merge($_FILES, array($key => 'files'));
@@ -77,7 +77,7 @@ class RequestTest extends AbstractKleinTest
         // Test data
         $params_get  = array('page' => 2, 'per_page' => 10, 'num' => 1, 5 => 'ok', 'empty' => null, 'blank' => '');
         $params_post = array('first_name' => 'Trevor', 'last_name' => 'Suarez', 'num' => 2, 3 => 'hmm', 4 => 'thing');
-        $cookies     = array('user' => 'Rican7', 'PHPSESSID' => 'randomstring', 'num' => 3, 4 => 'dog');
+        $cookies     = array('Models\User' => 'Rican7', 'PHPSESSID' => 'randomstring', 'num' => 3, 4 => 'dog');
         $named       = array('id' => '1f8ae', 'num' => 4);
 
         // Create the request
@@ -103,11 +103,11 @@ class RequestTest extends AbstractKleinTest
         // Test data
         $params_get  = array('page' => 2, 'per_page' => 10, 'num' => 1, 5 => 'ok', 'empty' => null, 'blank' => '');
         $params_post = array('first_name' => 'Trevor', 'last_name' => 'Suarez', 'num' => 2, 3 => 'hmm', 4 => 'thing');
-        $cookies     = array('user' => 'Rican7', 'PHPSESSID' => 'randomstring', 'num' => 3, 4 => 'dog');
+        $cookies     = array('Models\User' => 'Rican7', 'PHPSESSID' => 'randomstring', 'num' => 3, 4 => 'dog');
 
         // Create our filter and expected results
-        $filter      = array('page', 'user', 'num', 'this-key-never-showed-up-anywhere');
-        $expected    = array('page' => 2, 'user' => 'Rican7', 'num' => 3, 'this-key-never-showed-up-anywhere' => null);
+        $filter      = array('page', 'Models\User', 'num', 'this-key-never-showed-up-anywhere');
+        $expected    = array('page' => 2, 'Models\User' => 'Rican7', 'num' => 3, 'this-key-never-showed-up-anywhere' => null);
 
         // Create the request
         $request = new Request(
@@ -227,7 +227,7 @@ class RequestTest extends AbstractKleinTest
     public function testMethodOverride()
     {
         // Test data
-        $method                 = 'POST';
+        $method                 = 'Models\Post';
         $override_method        = 'TRACE';
         $weird_override_method  = 'DELETE';
 

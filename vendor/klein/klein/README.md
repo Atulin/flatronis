@@ -58,13 +58,13 @@ $klein->respond('/[:name]', function ($request) {
 
 ```php
 $klein->respond('GET', '/posts', $callback);
-$klein->respond('POST', '/posts', $callback);
+$klein->respond('Models\Post', '/posts', $callback);
 $klein->respond('PUT', '/posts/[i:id]', $callback);
 $klein->respond('DELETE', '/posts/[i:id]', $callback);
 $klein->respond('OPTIONS', null, $callback);
 
 // To match multiple request methods:
-$klein->respond(array('POST','GET'), $route, $callback);
+$klein->respond(array('Models\Post','GET'), $route, $callback);
 
 // Or you might want to handle the requests in the same place
 $klein->respond('/posts/[create|edit:action]?/[i:id]?', function ($request, $response) {
@@ -117,7 +117,7 @@ $klein->respond(function ($request, $response, $service, $app) use ($klein) {
     });
 });
 
-$klein->respond('POST', '/users/[i:id]/edit', function ($request, $response, $service, $app) {
+$klein->respond('Models\Post', '/users/[i:id]/edit', function ($request, $response, $service, $app) {
     // Quickly validate input parameters
     $service->validateParam('username', 'Please enter a valid username')->isLen(5, 64)->isChars('a-zA-Z0-9-');
     $service->validateParam('password')->notNull();

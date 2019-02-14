@@ -7,7 +7,9 @@
  */
 
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+use App\Models\User;
+
+$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
 
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -70,11 +72,11 @@ try {
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('user/mfa.twig', array(
+    echo $twig->render('user/mfa.twig', [
         'token'  => $token,
         'navbar' => SETTINGS['navbar'],
-        'qr'     => $qr,
-    ));
+        'qr'     => $qr
+    ]);
 
 // Handle all possible errors
 } catch (Twig_Error $e) {

@@ -6,9 +6,12 @@
  * Time: 05:10
  */
 
-require_once __DIR__.'/Database.php';
-require_once __DIR__.'/Category.php';
-require_once __DIR__.'/User.php';
+namespace App\Models;
+
+use DateTime;
+use App\Models;
+use PDO;
+use PDOException;
 
 /**
  * Class Post
@@ -45,13 +48,13 @@ class Post
     /**
      * Post constructor.
      * @param int $id ID
-     * @param $title string Title
+     * @param string $title Title
      * @param User $author Author
-     * @param $date datetime Date and time of creation
+     * @param datetime $date Date and time of creation
      * @param Category $category int Category
-     * @param $body string Body
+     * @param string $body Body
      */
-    public function __construct(int $id, string $title, User $author, datetime $date, Category $category, string $body)
+    public function __construct(int $id, string $title, User $author, DateTime $date, Category $category, string $body)
     {
         $this->id = $id;
         $this->title = $title;
@@ -67,9 +70,9 @@ class Post
      * @param int $id ID of the desired Post
      * @return Post Returns a Post object
      */
-    public static function Get(int $id): \Post
+    public static function Get(int $id): Post
     {
-        $dbh = Database::Get();
+        $dbh = Models\Database::Get();
         $sql = 'SELECT * FROM `posts`
                 WHERE `id` = :id
                 LIMIT 1';
@@ -90,8 +93,8 @@ class Post
 
     /**
      * Gets a selected amount of Posts from the database
-     * @param int $limit[optional] How many results to return
-     * @param int $offset[optional] How offset the results should be
+     * @param int $limit [optional] How many results to return
+     * @param int $offset [optional] How offset the results should be
      * @return array Returns an array of Post objects
      */
     public static function GetAll(int $limit = null, int $offset = null): array
@@ -103,8 +106,8 @@ class Post
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindValue(':l', $limit  ?: 10000, PDO::PARAM_INT);
-        $sth->bindValue(':o', $offset ?: 0,     PDO::PARAM_INT);
+        $sth->bindValue(':l', $limit ?: 10000, PDO::PARAM_INT);
+        $sth->bindValue(':o', $offset ?: 0, PDO::PARAM_INT);
 
         try {
             $sth->execute();
@@ -125,19 +128,19 @@ class Post
      */
     public function Add(): void
     {
-        $dbh = Database::Get();
+        $dbh = Models\Database::Get();
         $sql = 'INSERT INTO `posts` (id, title, author, date, category, body)
                 VALUES (:id, :title, :author, :date, :category, :body)';
 
         $sth = $dbh->prepare($sql);
 
         $date = $this->date->format('Y-m-d H:i:s');
-        $sth->bindParam(':id',      $this->id,          PDO::PARAM_INT);
-        $sth->bindParam(':title',   $this->title        );
-        $sth->bindParam(':author',  $this->author->id,  PDO::PARAM_INT);
-        $sth->bindParam(':date',    $date               );
-        $sth->bindParam(':category',$this->category->id,PDO::PARAM_INT);
-        $sth->bindParam(':body',    $this->body         );
+        $sth->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $sth->bindParam(':title', $this->title);
+        $sth->bindParam(':author', $this->author->id, PDO::PARAM_INT);
+        $sth->bindParam(':date', $date);
+        $sth->bindParam(':category', $this->category->id, PDO::PARAM_INT);
+        $sth->bindParam(':body', $this->body);
 
         try {
             $sth->execute();
@@ -153,7 +156,7 @@ class Post
      */
     public static function Delete(int $id): void
     {
-        $dbh = Database::Get();
+        $dbh = Models\Database::Get();
         $sql = 'DELETE FROM `posts` WHERE `id` = :id';
         $sth = $dbh->prepare($sql);
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
@@ -170,7 +173,7 @@ class Post
      */
     public function Update(): void
     {
-        $dbh = Database::Get();
+        $dbh = Models\Database::Get();
         $sql = 'UPDATE `posts`
                 SET `title` = :title, `author` = :author, `date` = :date, `category` =:category, `body` = :body
                 WHERE `id` = :id';
@@ -178,12 +181,12 @@ class Post
         $sth = $dbh->prepare($sql);
 
         $date = $this->date->format('Y-m-d H:i:s');
-        $sth->bindParam(':id',      $this->id,          PDO::PARAM_INT);
-        $sth->bindParam(':title',   $this->title        );
-        $sth->bindParam(':author',  $this->author->id,  PDO::PARAM_INT);
-        $sth->bindParam(':date',    $date               );
-        $sth->bindParam(':category',$this->category->id,PDO::PARAM_INT);
-        $sth->bindParam(':body',    $this->body         );
+        $sth->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $sth->bindParam(':title', $this->title);
+        $sth->bindParam(':author', $this->author->id, PDO::PARAM_INT);
+        $sth->bindParam(':date', $date);
+        $sth->bindParam(':category', $this->category->id, PDO::PARAM_INT);
+        $sth->bindParam(':body', $this->body);
 
         try {
             $sth->execute();
@@ -198,7 +201,7 @@ class Post
      * @param array $post Associative array representing the Post object
      * @return Post Returns a Post object
      */
-    private static function Build(array $post): \Post
+    private static function Build(array $post): Post
     {
         return new Post(
             $post['id'],

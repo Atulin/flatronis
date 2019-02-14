@@ -6,7 +6,10 @@
  * Time: 04:11
  */
 
-require_once __DIR__.'/Database.php';
+namespace App\Models;
+
+use PDO;
+use PDOException;
 
 /**
  * Class User
@@ -43,10 +46,10 @@ class User
     /**
      * User constructor method
      * @param int $id ID
-     * @param string $name  Name
-     * @param string $email  Name
-     * @param string $password  Password
-     * @param string $mfa  Multi-factor authentication token
+     * @param string $name Name
+     * @param string $email Name
+     * @param string $password Password
+     * @param string $mfa Multi-factor authentication token
      * @param string $device Hashed IP of the last known device
      */
     public function __construct(int $id, string $name, string $email, string $password, string $mfa, string $device)
@@ -65,7 +68,7 @@ class User
      * @param int $id ID of the desired user
      * @return User Returns User object
      */
-    public static function GetById(int $id): \User
+    public static function GetById(int $id): User
     {
         return self::GetBy($id, 'id', PDO::PARAM_INT);
     }
@@ -75,7 +78,7 @@ class User
      * @param string $name Name of the desired user
      * @return User Returns User object
      */
-    public static function GetByName(string $name): \User
+    public static function GetByName(string $name): User
     {
         return self::GetBy($name, 'name', PDO::PARAM_STR);
     }
@@ -87,7 +90,7 @@ class User
      * @param int $type Type of the parameter in PDO:: class
      * @return User Returns User object
      */
-    private static function GetBy($param, string $field, int $type): \User
+    private static function GetBy($param, string $field, int $type): User
     {
         $dbh = Database::Get();
         $sql = 'SELECT * FROM `users`';
@@ -117,8 +120,8 @@ class User
 
     /**
      * Gets a selected amount of Users from the database
-     * @param int $limit[optional] How many results to return
-     * @param int $offset[optional] How offset the results should be
+     * @param int $limit [optional] How many results to return
+     * @param int $offset [optional] How offset the results should be
      * @return array Returns an array of User objects
      */
     public static function GetAll(int $limit = null, int $offset = null): array
@@ -130,8 +133,8 @@ class User
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindValue(':l', $limit  ?: 10000, PDO::PARAM_INT);
-        $sth->bindValue(':o', $offset ?: 0,     PDO::PARAM_INT);
+        $sth->bindValue(':l', $limit ?: 10000, PDO::PARAM_INT);
+        $sth->bindValue(':o', $offset ?: 0, PDO::PARAM_INT);
 
         try {
             $sth->execute();
@@ -157,11 +160,11 @@ class User
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':id',     $this->id, PDO::PARAM_INT);
-        $sth->bindParam(':name',   $this->name);
-        $sth->bindParam(':email',  $this->email);
-        $sth->bindParam(':pass',   $this->password);
-        $sth->bindParam(':mfa',    $this->mfa);
+        $sth->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $sth->bindParam(':name', $this->name);
+        $sth->bindParam(':email', $this->email);
+        $sth->bindParam(':pass', $this->password);
+        $sth->bindParam(':mfa', $this->mfa);
         $sth->bindParam(':device', $this->device);
 
         try {
@@ -183,11 +186,11 @@ class User
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':id',     $this->id,       PDO::PARAM_INT);
-        $sth->bindParam(':name',   $this->name);
-        $sth->bindParam(':email',  $this->email);
-        $sth->bindParam(':pass',   $this->password);
-        $sth->bindParam(':mfa',    $this->mfa);
+        $sth->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $sth->bindParam(':name', $this->name);
+        $sth->bindParam(':email', $this->email);
+        $sth->bindParam(':pass', $this->password);
+        $sth->bindParam(':mfa', $this->mfa);
         $sth->bindParam(':device', $this->device);
 
         try {
@@ -210,7 +213,7 @@ class User
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':id',     $this->id, PDO::PARAM_INT);
+        $sth->bindParam(':id', $this->id, PDO::PARAM_INT);
         $sth->bindParam(':device', $device);
 
         try {
@@ -225,7 +228,7 @@ class User
      * @param array $user Associative array representing the User object
      * @return User Returns an User object
      */
-    private static function Build(array $user): \User
+    private static function Build(array $user): User
     {
         return new User(
             $user['id'],

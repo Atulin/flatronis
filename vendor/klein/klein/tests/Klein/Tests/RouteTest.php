@@ -12,7 +12,6 @@
 namespace Klein\Tests;
 
 use InvalidArgumentException;
-use Klein\Klein;
 use Klein\Route;
 
 /**
@@ -76,8 +75,8 @@ class RouteTest extends AbstractKleinTest
     {
         // Test data
         $test_callable = $this->getTestCallable();
-        $test_method_string = 'POST';
-        $test_method_array = array('POST', 'PATCH');
+        $test_method_string = 'Models\Post';
+        $test_method_array = array('Models\Post', 'PATCH');
 
         // Empty constructor
         $route = new Route($test_callable);

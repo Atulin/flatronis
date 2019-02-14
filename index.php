@@ -14,10 +14,13 @@ define('CONTROLLERS', ROOT.'/public/controllers');
 define('VIEWS', ROOT.'/public/views');
 
 require_once ROOT . '/vendor/autoload.php';
-require_once ROOT . '/backend/models/Post.php';
-require_once ROOT . '/backend/models/Category.php';
-require_once ROOT . '/backend/models/User.php';
+require_once MODELS . '/Database.php';
+require_once MODELS . '/Post.php';
+require_once MODELS . '/Category.php';
+require_once MODELS . '/User.php';
 
+
+use App\Models\User;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Yaml\Yaml;
 use Whoops\Run;
@@ -67,7 +70,7 @@ try {
     $router->addRoutes(array(
         array('GET', '/', function (){require CONTROLLERS.'/Home.php';}, 'home'),
         array('GET', '/[i:p]?', function ($p=1){$p; require CONTROLLERS.'/Home.php';}, 'home-page'),
-        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require CONTROLLERS.'/Post.php';}, 'post'),
+        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require CONTROLLERS.'/Post.php';}, 'Models\Post'),
 
         // Registration
         array('GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'),

@@ -7,7 +7,10 @@
  */
 
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+use App\Models\Post;
+use App\Models\User;
+
+$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
 
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -42,12 +45,12 @@ $_SESSION['token'] = $token;
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('admin/posts.twig', array(
-        'user'   => $user,
+    echo $twig->render('admin/posts.twig', [
+        'Models\User' => $user,
         'navbar' => SETTINGS['navbar'],
         'token'  => $token,
-        'posts'  => Post::GetAll(),
-    ));
+        'posts'  => Post::GetAll()
+    ]);
 
 // Handle all possible errors
 } catch (Twig_Error $e) {

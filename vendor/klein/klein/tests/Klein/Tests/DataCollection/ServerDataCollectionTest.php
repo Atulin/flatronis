@@ -41,7 +41,7 @@ class ServerDataCollectionTest extends AbstractKleinTest
             'SERVER_NAME' => 'localhost',
             'SERVER_PORT' => '8000',
             'REQUEST_URI' => '/test.php',
-            'REQUEST_METHOD' => 'POST',
+            'REQUEST_METHOD' => 'Models\Post',
             'SCRIPT_NAME' => '/test.php',
             'SCRIPT_FILENAME' => '/cygdrive/d/Trevor/tmp/test.php',
             'PHP_SELF' => '/test.php',

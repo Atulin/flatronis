@@ -15,7 +15,6 @@ use Exception;
 use Klein\App;
 use Klein\DataCollection\RouteCollection;
 use Klein\Exceptions\DispatchHaltedException;
-use Klein\Exceptions\HttpException;
 use Klein\Exceptions\HttpExceptionInterface;
 use Klein\Klein;
 use Klein\Request;
@@ -498,7 +497,7 @@ class KleinTest extends AbstractKleinTest
 
         $this->assertNotNull($route);
         $this->assertTrue($route instanceof Route);
-        $this->assertSame('POST', $route->getMethod());
+        $this->assertSame('Models\Post', $route->getMethod());
     }
 
     public function testPut()

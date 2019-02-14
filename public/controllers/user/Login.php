@@ -6,7 +6,9 @@
  * Time: 03:24
  */
 // Load up Twig stuff
-$loader = new Twig_Loader_Filesystem(array(VIEWS, ASSETS));
+use App\Models\User;
+
+$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
 
 $twig = new Twig_Environment($loader);
 $twig->addExtension(new Twig_Extensions_Extension_Text());
@@ -73,10 +75,10 @@ $_SESSION['token'] = $token;
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('user/login.twig', array(
+    echo $twig->render('user/login.twig', [
         'token'  => $token,
-        'navbar' => SETTINGS['navbar'],
-    ));
+        'navbar' => SETTINGS['navbar']
+    ]);
 
 // Handle all possible errors
 } catch (Twig_Error $e) {
