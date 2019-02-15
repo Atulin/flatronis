@@ -15,19 +15,8 @@ define('VIEWS', ROOT.'/public/views');
 
 require_once ROOT . '/vendor/autoload.php';
 
-// Autoload classes
-spl_autoload_register(function ($class) {
-    $class_arr = explode('\\', $class);
-    $file = MODELS . '/' . array_pop($class_arr).'.php';
-    if (file_exists($file)) {
-        require $file;
-        return true;
-    }
-    echo "<pre>{$class} could not be loaded</pre>";
-    return false;
-});
-
 use App\Models\User;
+
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Yaml\Yaml;
 use Whoops\Run;
@@ -74,15 +63,15 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
 
 // Map routes
 try {
-    $router->addRoutes(array(
-        array('GET', '/', function (){require CONTROLLERS.'/Home.php';}, 'home'),
-        array('GET', '/[i:p]?', function ($p=1){$p; require CONTROLLERS.'/Home.php';}, 'home-page'),
-        array('GET', '/post/[i:id]/[:slug]?', function ($id){$id; require CONTROLLERS.'/Post.php';}, 'Models\Post'),
+    $router->addRoutes([
+        ['GET', '/', function (){require CONTROLLERS.'/Home.php';}, 'home'],
+        ['GET', '/[i:p]?', function ($p=null){$p; require CONTROLLERS.'/Home.php';}, 'home-page'],
+        ['GET', '/post/[i:id]/[:slug]?', function ($id){$id; require CONTROLLERS.'/Post.php';}, 'Models\Post'],
 
         // Registration
-        array('GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'),
-        array('GET|POST', '/admin/mfa', function (){require CONTROLLERS.'/user/MFA.php';}, 'mfa'),
-    ));
+        ['GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'],
+        ['GET|POST', '/admin/mfa', function (){require CONTROLLERS.'/user/MFA.php';}, 'mfa'],
+    ]);
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
 }
@@ -90,20 +79,20 @@ try {
 // Logged-in only
 if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
-        $router->addRoutes(array(
-            array('GET', '/admin', function () {require CONTROLLERS.'/admin/Dashboard.php';}, 'dashboard'),
-            array('GET|POST', '/admin/categories', function () {require CONTROLLERS.'/admin/Categories.php';}, 'categories'),
-            array('GET|POST', '/admin/posts', function () {require CONTROLLERS.'/admin/Posts.php';}, 'posts'),
-            array('GET|POST', '/admin/editor', function () {require CONTROLLERS.'/admin/Editor.php';}, 'editor'),
-        ));
+        $router->addRoutes([
+            ['GET', '/admin', function () {require CONTROLLERS.'/admin/Dashboard.php';}, 'dashboard'],
+            ['GET|POST', '/admin/categories', function () {require CONTROLLERS.'/admin/Categories.php';}, 'categories'],
+            ['GET|POST', '/admin/posts', function () {require CONTROLLERS.'/admin/Posts.php';}, 'posts'],
+            ['GET|POST', '/admin/editor', function () {require CONTROLLERS.'/admin/Editor.php';}, 'editor'],
+        ]);
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
     }
 } else {
     try {
-        $router->addRoutes(array(
+        $router->addRoutes([
             // Login
-            array('GET|POST', '/admin/login', function () {require CONTROLLERS.'/user/Login.php';}, 'login'),));
+            ['GET|POST', '/admin/login', function () {require CONTROLLERS.'/user/Login.php';}, 'login'],]);
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
     }

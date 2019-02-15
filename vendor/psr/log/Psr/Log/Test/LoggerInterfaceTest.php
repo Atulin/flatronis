@@ -40,8 +40,8 @@ abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
     public function testLogsAtAllLevels($level, $message)
     {
         $logger = $this->getLogger();
-        $logger->{$level}($message, array('Models\User' => 'Bob'));
-        $logger->log($level, $message, array('Models\User' => 'Bob'));
+        $logger->{$level}($message, array('user' => 'Bob'));
+        $logger->log($level, $message, array('user' => 'Bob'));
 
         $expected = array(
             $level.' message of level '.$level.' with context: Bob',
@@ -76,7 +76,7 @@ abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
     public function testContextReplacement()
     {
         $logger = $this->getLogger();
-        $logger->info('{Message {nothing} {user} {foo.bar} a}', array('Models\User' => 'Bob', 'foo.bar' => 'Bar'));
+        $logger->info('{Message {nothing} {user} {foo.bar} a}', array('user' => 'Bob', 'foo.bar' => 'Bar'));
 
         $expected = array('info {Message {nothing} Bob Bar a}');
         $this->assertEquals($expected, $this->getLogs());
@@ -101,6 +101,9 @@ abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
 
     public function testContextCanContainAnything()
     {
+        $closed = fopen('php://memory', 'r');
+        fclose($closed);
+
         $context = array(
             'bool' => true,
             'null' => null,
@@ -110,6 +113,7 @@ abstract class LoggerInterfaceTest extends \PHPUnit_Framework_TestCase
             'nested' => array('with object' => new DummyTest),
             'object' => new \DateTime,
             'resource' => fopen('php://memory', 'r'),
+            'closed' => $closed,
         );
 
         $this->getLogger()->warning('Crazy context data', $context);

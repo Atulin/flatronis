@@ -41,9 +41,10 @@ class ComposerStaticInit014d1d0c23a19d1dc4d292de67a72224
         array (
             'Psr\\Log\\' => 8,
         ),
-        'K' => 
+        'A' => 
         array (
-            'Klein\\' => 6,
+            'App\\Models\\' => 11,
+            'App\\Controllers\\' => 16,
         ),
     );
 
@@ -96,9 +97,13 @@ class ComposerStaticInit014d1d0c23a19d1dc4d292de67a72224
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
-        'Klein\\' => 
+        'App\\Models\\' => 
         array (
-            0 => __DIR__ . '/..' . '/klein/klein/src/Klein',
+            0 => __DIR__ . '/../..' . '/backend/models',
+        ),
+        'App\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/public/controllers',
         ),
     );
 

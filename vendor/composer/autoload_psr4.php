@@ -18,5 +18,6 @@ return array(
     'RobThree\\Auth\\' => array($vendorDir . '/robthree/twofactorauth/lib'),
     'ReCaptcha\\' => array($vendorDir . '/google/recaptcha/src/ReCaptcha'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
-    'Klein\\' => array($vendorDir . '/klein/klein/src/Klein'),
+    'App\\Models\\' => array($baseDir . '/backend/models'),
+    'App\\Controllers\\' => array($baseDir . '/public/controllers'),
 );
