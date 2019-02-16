@@ -31,7 +31,7 @@ if (!empty($_POST) && isset($_POST)) {
 
     // Check device
     $device = password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_ARGON2I);
-    $same_device = $device === $u->device;
+    $same_device = password_verify($_SERVER['REMOTE_ADDR'], $u->device);
 
     // Verify 2FA
     $result = $tfa->verifyCode($u->mfa, $_POST['2fa'] ?? null);

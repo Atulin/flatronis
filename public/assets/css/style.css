@@ -361,7 +361,8 @@ form div.field {
 
 div#admin {
   display: flex;
-  min-height: 90vh; }
+  min-height: 90vh;
+  margin-top: 40px; }
   @media only screen and (max-width: 600px) {
     div#admin {
       display: block; } }

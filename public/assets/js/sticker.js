@@ -12,8 +12,6 @@ function stickyNavigation() {
             body.style.paddingTop = 0;
             nav.classList.remove('fixed');
         }
-    } else {
-        nav.classList.add('fixed');
     }
 }
 

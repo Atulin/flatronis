@@ -30,7 +30,7 @@ if (!empty($_POST['token'])) {
                 $_POST['title'],
                 User::GetById($_POST['author']),
                 DateTime::createFromFormat('d.m.Y H:i:s', $_POST['date']),
-                Category::Get($_POST['Models\Category']),
+                Category::Get($_POST['category']),
                 $_POST['body']);
             $p->Add();
         } else {
@@ -39,7 +39,7 @@ if (!empty($_POST['token'])) {
                 $_POST['title'],
                 User::GetById($_POST['author']),
                 DateTime::createFromFormat('d.m.Y H:i:s', $_POST['date']),
-                Category::Get($_POST['Models\Category']),
+                Category::Get($_POST['category']),
                 $_POST['body']);
             $p->Update();
         }
@@ -67,13 +67,13 @@ $_SESSION['token'] = $token;
 try {
     // Render the actual Twig template
     echo $twig->render('admin/editor.twig', [
-        'Models\User' => $user,
+        'user'       => $user,
         'token'      => $token,
         'navbar'     => SETTINGS['navbar'],
         'now'        => date('d.m.Y H:i:s'),
         'users'      => User::GetAll(),
         'categories' => Category::GetAll(),
-        'Models\Post' => $post
+        'post'       => $post
     ]);
 
 // Handle all possible errors

@@ -107,7 +107,6 @@ if( $match && is_callable( $match['target'] ) ) {
     call_user_func_array( $match['target'], $match['params'] );
 } else {
     // no route was matched
-    echo '<pre>'.var_export($match, true).'</pre>';
-//    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-//    die('404');
+    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+    die('404');
 }

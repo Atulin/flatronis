@@ -53,6 +53,7 @@ try {
     echo $twig->render('home.twig', [
         'posts'    => $posts,
         'navbar'   => SETTINGS['navbar'],
+        'header'   => true,
         'analytics'=> $_ENV['ANALYTICS'],
         'parallax' => SETTINGS['parallax'],
         'page'     => $p ?? 1
