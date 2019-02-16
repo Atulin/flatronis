@@ -1,37 +1,25 @@
 <?php
-//namespace App\Extensions;
+//use App\Models\Post;
 //
-//use ParsedownExtra;
+//$posts = Post::GetAll();
 //
-//class Extension extends ParsedownExtra
-//{
+//foreach ($posts as $post) {
 //
-//    function __construct()
-//    {
-//        $this->InlineTypes['{'][]= 'ColoredText';
+//    $body = str_replace('iframe src', 'iframe class="lazy" data-src', $post->body);
 //
-//        $this->inlineMarkerList .= '{';
-//    }
+//    $new = new Post(
+//        $post->id,
+//        $post->title,
+//        $post->author,
+//        $post->date,
+//        $post->category,
+//        $body
+//    );
 //
-//    protected function inlineColoredText($excerpt)
-//    {
-//        if (preg_match('/^{c:([#\w]\w+)}(.*?){\/c}/', $excerpt['text'], $matches))
-//        {
-//            return array(
+//    $new->Update();
 //
-//                // How many characters to advance the Parsedown's
-//                // cursor after being done processing this tag.
-//                'extent' => strlen($matches[0]),
-//                'element' => array(
-//                    'name' => 'span',
-//                    'text' => $matches[2],
-//                    'attributes' => array(
-//                        'style' => 'color: ' . $matches[1],
-//                    ),
-//                ),
-//
-//            );
-//        }
-//    }
+//    echo 'Updated '.$new->title;
 //
 //}
+//
+//echo 'UPDATED ALL';

@@ -1,5 +1,5 @@
 # Domain of your blog
-domain: erronisgames.com
+domain: erronis.games
 
 # Name of your blog
 name: Erronis Games
@@ -36,4 +36,4 @@ navbar:
     - image: assets/img/social/youtube.webp
       fallback: assets/img/social/youtube.png
       alt: YouTube button logo
-      link: https://twitter.com/ErronisGames
+      link: https://www.youtube.com/channel/UC0jnS_9ERShjqjW6rsgXoHA

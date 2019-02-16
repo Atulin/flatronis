@@ -71,6 +71,8 @@ try {
         // Registration
         ['GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'],
         ['GET|POST', '/admin/mfa', function (){require CONTROLLERS.'/user/MFA.php';}, 'mfa'],
+
+//        ['GET|POST', '/d', function (){require __DIR__.'/dev.php';}]
     ]);
 } catch (Exception $e) {
     throw new RuntimeException($e->getMessage());
@@ -105,6 +107,7 @@ if( $match && is_callable( $match['target'] ) ) {
     call_user_func_array( $match['target'], $match['params'] );
 } else {
     // no route was matched
-    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-    die('404');
+    echo '<pre>'.var_export($match, true).'</pre>';
+//    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+//    die('404');
 }

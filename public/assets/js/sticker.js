@@ -4,12 +4,16 @@ const navTop = nav.offsetTop;
 
 function stickyNavigation() {
 
-    if (window.scrollY >= navTop) {
-        body.style.paddingTop = nav.offsetHeight + 'px';
-        nav.classList.add('fixed');
+    if (body) {
+        if (window.scrollY >= navTop) {
+            body.style.paddingTop = nav.offsetHeight + 'px';
+            nav.classList.add('fixed');
+        } else {
+            body.style.paddingTop = 0;
+            nav.classList.remove('fixed');
+        }
     } else {
-        body.style.paddingTop = 0;
-        nav.classList.remove('fixed');
+        nav.classList.add('fixed');
     }
 }
 

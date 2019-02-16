@@ -75,7 +75,6 @@ i.icon {
     background-position: 0 200px, 0 -120px, 0 100px; } }
 .parallax-container {
   position: relative;
-  display: flex;
   justify-content: center;
   width: 100%;
   height: 80vw;
@@ -83,12 +82,14 @@ i.icon {
   top: 0; }
 
 .parallax-layer {
-  display: block;
-  position: absolute;
-  object-fit: contain;
-  top: 0;
-  max-height: 100%;
   width: 100%; }
+  .parallax-layer > img {
+    display: block;
+    position: absolute;
+    object-fit: contain;
+    top: 0;
+    max-height: 100%;
+    width: 100%; }
 
 nav.navbar {
   display: flex;
@@ -271,6 +272,7 @@ hr.fading {
   display: block;
   position: absolute;
   bottom: 10px;
+  left: 50%;
   animation: bounce 2s infinite;
   opacity: 1;
   transition: opacity 0.4s; }
@@ -407,6 +409,8 @@ div#admin {
         div#admin ul.categories li .summary .name {
           flex-grow: 1;
           flex-shrink: 0; }
+        div#admin ul.categories li .summary .actions {
+          display: block; }
       div#admin ul.categories li .description {
         margin-left: 20px;
         color: #818078; }

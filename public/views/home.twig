@@ -1,15 +1,11 @@
 {% extends'Master.twig' %}
 {% block title %}Erronis Games{% endblock %}
 {% block description %}Official website of Erronis Games{% endblock %}
-{% block canonical %}https://erronisgames.com{% endblock %}
+{% block canonical %}https://erronis.games{% endblock %}
 {% block thumbnail %}{% endblock %}
 {% block summary %}Official website of Erronis Games{% endblock %}
 
 {% block scripts %}
-    {{ parent() }}
-{% endblock %}
-
-{% block analytics %}
     {{ parent() }}
     <script async src="{{ asset('assets/js/rellax.min.js') }}" type='text/javascript'></script>
     <script defer src="{{ asset('assets/js/scroll-indicator.min.js') }}" type='text/javascript'></script>
@@ -20,13 +16,12 @@
 
     <div class="parallax-container">
         {% for p in parallax %}
-            <img src="{{ asset(p.file) }}"
-                 class="rellax parallax-layer"
-                 data-rellax-speed="{{ p.speed }}"
-                 {% if p.fallback %}
-                 onerror="this.onerror=null; this.src='{{ asset(p.fallback) }}'"
-                 {% endif %}
-                 alt="{{ p.alt }}">
+            <picture class="parallax-layer">
+                {% if p.fallback %}
+                    <source srcset="{{ asset(p.file) }}" type="image/webp">
+                {% endif %}
+                <img class="rellax" src="{{ asset(p.fallback) }}" alt="{{ p.alt }}" data-rellax-speed="{{ p.speed }}">
+            </picture>
         {% endfor %}
         <div class="scroll-indicator" id="scroll-indicator"><i class="icon expand"></i></div>
     </div>
@@ -62,8 +57,9 @@
 </div>
 
 <script>
-    // Accepts any class name
-    var rellax = new Rellax('.rellax');
+    window.addEventListener('load', function() {
+        const rellax = new Rellax('.rellax');
+    });
 </script>
 
 {% endblock %}

@@ -30,7 +30,7 @@ try {
     echo $twig->render('post.twig', [
         'navbar' => SETTINGS['navbar'],
         'analytics'=> $_ENV['ANALYTICS'],
-        'Models\Post' => $post
+        'post' => $post
     ]);
 
 

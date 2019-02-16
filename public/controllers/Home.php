@@ -22,6 +22,7 @@ $twig->addFilter(new Twig_SimpleFilter('break', function ($string) {
     return $out;
 }));
 
+
 /**
  * @param $search
  * @param $replace
