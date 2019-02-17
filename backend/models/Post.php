@@ -206,7 +206,7 @@ class Post
         return new Post(
             $post['id'],
             $post['title'],
-            User::GetById($post['author']),
+            User::GetById($post['author'], true),
             DateTime::createFromFormat('Y-m-d H:i:s', $post['date']),
             Category::Get($post['category']),
             $post['body']

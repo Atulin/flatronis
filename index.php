@@ -56,7 +56,7 @@ $dotenv->load(ROOT.'/.env');
 $ipcheck = false;
 if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     $user = User::GetById($_SESSION['userid']);
-    $ipcheck = password_verify($_SERVER['REMOTE_ADDR'], $user->device);
+    $ipcheck = password_verify($_SERVER['REMOTE_ADDR'], $user->getDevice());
 }
 
 
@@ -67,6 +67,9 @@ try {
         ['GET', '/', function (){require CONTROLLERS.'/Home.php';}, 'home'],
         ['GET', '/[i:p]?', function ($p=null){$p; require CONTROLLERS.'/Home.php';}, 'home-page'],
         ['GET', '/post/[i:id]/[:slug]?', function ($id){$id; require CONTROLLERS.'/Post.php';}, 'Models\Post'],
+
+        // API
+        ['GET', '/api/posts', function(){require CONTROLLERS.'/api/Posts.php';}, 'api-posts'],
 
         // Registration
         ['GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'],
@@ -103,10 +106,9 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
 $match = $router->match();
 
 // Handle routing
-if( $match && is_callable( $match['target'] ) ) {
+if( $match && is_callable( $match['target']) ) {
     call_user_func_array( $match['target'], $match['params'] );
 } else {
-    // no route was matched
     header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
     die('404');
 }

@@ -28,20 +28,85 @@ class User
     /**
      * @var string Email of the user
      */
-    public $email;
+    private $email;
     /**
      * @var string Password of the user
      */
-    public $password;
+    private $password;
     /**
      * @var string Multi-factor authentication key
      */
-    public $mfa;
+    private $mfa;
     /**
      * @var string Hashed IP of the device last login was performed from
      */
-    public $device;
+    private $device;
 
+
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMfa(): string
+    {
+        return $this->mfa;
+    }
+
+    /**
+     * @param string $mfa
+     */
+    public function setMfa(string $mfa): void
+    {
+        $this->mfa = $mfa;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDevice(): string
+    {
+        return $this->device;
+    }
+
+    /**
+     * @param string $device
+     */
+    public function setDevice(string $device): void
+    {
+        $this->device = $device;
+    }
 
     /**
      * User constructor method
@@ -52,35 +117,33 @@ class User
      * @param string $mfa Multi-factor authentication token
      * @param string $device Hashed IP of the last known device
      */
-    public function __construct(int $id, string $name, string $email, string $password, string $mfa, string $device)
+    public function __construct(int $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->mfa = $mfa;
-        $this->device = $device;
     }
 
 
     /**
      * Gets User from database by specified ID
      * @param int $id ID of the desired user
+     * @param bool|null $safe
      * @return User Returns User object
      */
-    public static function GetById(int $id): User
+    public static function GetById(int $id, bool $safe = null): User
     {
-        return self::GetBy($id, 'id', PDO::PARAM_INT);
+        return self::GetBy($id, 'id', PDO::PARAM_INT, $safe);
     }
 
     /**
      * Gets User from database by specified name
      * @param string $name Name of the desired user
+     * @param bool|null $safe
      * @return User Returns User object
      */
-    public static function GetByName(string $name): User
+    public static function GetByName(string $name, bool $safe = null): User
     {
-        return self::GetBy($name, 'name', PDO::PARAM_STR);
+        return self::GetBy($name, 'name', PDO::PARAM_STR, $safe);
     }
 
     /**
@@ -88,9 +151,10 @@ class User
      * @param int $param Parameter to get by
      * @param string $field Property to get by
      * @param int $type Type of the parameter in PDO:: class
+     * @param bool|null $safe
      * @return User Returns User object
      */
-    private static function GetBy($param, string $field, int $type): User
+    private static function GetBy($param, string $field, int $type, bool $safe = null): User
     {
         $dbh = Database::Get();
         $sql = 'SELECT * FROM `users`';
@@ -115,16 +179,17 @@ class User
             throw $e;
         }
 
-        return self::Build($sth->fetch(PDO::FETCH_ASSOC));
+        return self::Build($sth->fetch(PDO::FETCH_ASSOC), $safe);
     }
 
     /**
      * Gets a selected amount of Users from the database
      * @param int $limit [optional] How many results to return
      * @param int $offset [optional] How offset the results should be
+     * @param bool|null $safe
      * @return array Returns an array of User objects
      */
-    public static function GetAll(int $limit = null, int $offset = null): array
+    public static function GetAll(int $limit = null, int $offset = null, bool $safe = null): array
     {
         $dbh = Database::Get();
         $sql = 'SELECT * FROM `users`
@@ -144,7 +209,7 @@ class User
 
         $users = $sth->fetchAll();
         foreach ($users as $key => $user) {
-            $users[$key] = self::Build($user);
+            $users[$key] = self::Build($user, $safe);
         }
         return $users;
     }
@@ -226,18 +291,22 @@ class User
     /**
      * Transforms an associative array into an User object
      * @param array $user Associative array representing the User object
+     * @param bool|null $safe
      * @return User Returns an User object
      */
-    private static function Build(array $user): User
+    private static function Build(array $user, bool $safe = null): User
     {
-        return new User(
+        $u =  new User(
             $user['id'],
-            $user['name'],
-            $user['email'],
-            $user['password'],
-            $user['2fa'],
-            $user['device']
+            $user['name']
         );
+        if (!$safe) {
+            $u->setDevice($user['device']);
+            $u->setPassword($user['password']);
+            $u->setMfa($user['2fa']);
+            $u->setEmail($user['email']);
+        }
+        return $u;
     }
 
 }
