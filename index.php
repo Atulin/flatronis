@@ -60,7 +60,6 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
 }
 
 
-
 // Map routes
 try {
     $router->addRoutes([
