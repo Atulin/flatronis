@@ -4,6 +4,8 @@ const navTop = nav.offsetTop;
 
 function stickyNavigation() {
 
+    console.log(navTop);
+
     if (body) {
         if (window.scrollY >= navTop) {
             body.style.paddingTop = nav.offsetHeight + 'px';

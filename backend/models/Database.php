@@ -24,7 +24,13 @@ class Database
     public static function Get(): PDO
     {
         try {
-            return new PDO("mysql:host={$_ENV['HOST']};dbname={$_ENV['DB']}", $_ENV['USER'], $_ENV['PASS']);
+            return new PDO("mysql:host={$_ENV['HOST']};dbname={$_ENV['DB']};charset=utf8mb4",
+                $_ENV['USER'],
+                $_ENV['PASS'],
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_PERSISTENT => false
+                ]);
         } catch (PDOException $e) {
             throw $e;
         }

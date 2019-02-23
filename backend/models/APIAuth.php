@@ -44,25 +44,44 @@ class APIAuth
     }
 
     /**
+     * @param string $public_key
+     */
+    public function setPublicKey(string $public_key): void
+    {
+        $this->public_key = $public_key;
+    }
+
+    /**
+     * @param string $private_key
+     */
+    public function setPrivateKey(string $private_key): void
+    {
+        $this->private_key = $private_key;
+    }
+
+    /**
      * ApiAuth constructor.
      * @param string $id
      * @param string $name
      * @param string $comment
-     * @param int $power
-     * @param string $public
-     * @param string $private
      * @throws \Exception
      */
-    public function __construct(string $id, string $name, string $comment,
-                                ?int $power = 1024, string $public = null, string $private = null)
+    public function __construct(string $id, string $name, string $comment)
     {
         $this->id          = $id;
         $this->name        = $name;
         $this->comment     = $comment;
-        $this->public_key  = $public ?? bin2hex(random_bytes($power));
-        $this->private_key = $private ?? bin2hex(random_bytes($power));
     }
 
+    /**
+     * @param int $power
+     * @throws \Exception
+     */
+    public function GenerateKeys(int $power = 1024): void
+    {
+        $this->public_key  = bin2hex(random_bytes($power));
+        $this->private_key = bin2hex(random_bytes($power));
+    }
 
     /**
      * @return string
@@ -109,7 +128,7 @@ class APIAuth
      * @return APIAuth
      * @throws \Exception
      */
-    public static function Get(string $id): APIAuth
+    public static function Get(string $id): ?APIAuth
     {
         $dbh = Database::Get();
         $sql = 'SELECT * FROM api_keys
@@ -128,14 +147,18 @@ class APIAuth
 
         $api_auth = $sth->fetch(PDO::FETCH_ASSOC);
 
-        return new APIAuth(
-            $api_auth['id'],
-            $api_auth['name'],
-            $api_auth['comment'],
-            null,
-            $api_auth['public_key'],
-            $api_auth['private_key']
-        );
+        if($api_auth) {
+            $auth = new APIAuth(
+                $api_auth['id'],
+                $api_auth['name'],
+                $api_auth['comment']
+            );
+            $auth->setPrivateKey($api_auth['private_key']);
+            $auth->setPublicKey($api_auth['public_key']);
+            return $auth;
+        }
+
+        return null;
     }
 
     /**
