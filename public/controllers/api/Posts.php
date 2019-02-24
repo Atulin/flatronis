@@ -9,37 +9,46 @@
 use App\Models\APIAuth;
 use App\Models\Post;
 
+// Validate and sanitize GET
+$GET = filter_input_array(INPUT_GET, [
+    'client_id'  => FILTER_SANITIZE_STRING,
+    'client_key' => FILTER_SANITIZE_STRING,
+    'id'         => FILTER_VALIDATE_INT,
+    'limit'      => FILTER_VALIDATE_INT,
+    'offset'     => FILTER_VALIDATE_INT
+]);
+
 header('Content-type: application/json');
 
 $errors = [];
 
 // Check if any credentials are set
-if (isset($_GET['client_id'], $_GET['client_key'])) {
+if (isset($GET['client_id'], $GET['client_key'])) {
     try {
-        $auth = APIAuth::Get($_GET['client_id']);
+        $auth = APIAuth::Get($GET['client_id']);
     } catch (Exception $e) {
         $errors[] = $e->getMessage();
     }
 
     // Check if key is valid
-    $valid = $auth ? $auth->Check($_GET['client_key']) : false;
+    $valid = $auth ? $auth->Check($GET['client_key']) : false;
     if ($valid) {
 
         // Check if client requested any specific post
-        if (isset($_GET['id'])) {
+        if (isset($GET['id'])) {
             $out = Post::Get(
-                $_GET['id']
+                $GET['id']
             );
         } else {
             $out = Post::GetAll(
-                $_GET['limit'] ?? null,
-                $_GET['offset'] ?? null
+                $GET['limit'] ?? null,
+                $GET['offset'] ?? null
             );
         }
 
         $json = json_encode($out, JSON_PRETTY_PRINT, 5);
 
-        if($json) {
+        if ($json) {
             echo $json;
         } else {
             $errors[] = check_error(json_last_error());

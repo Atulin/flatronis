@@ -29,28 +29,39 @@ if (!empty($_POST) && isset($_POST)) {
     // Get user
     $u = User::GetByName($_POST['login']);
 
+//    echo '<pre>'.var_export($u, true).'</pre>';
+//    echo '<pre>'.var_export($_POST, true).'</pre>';
+
     // Check device
     $device = password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_ARGON2I);
-    $same_device = password_verify($_SERVER['REMOTE_ADDR'], $u->device);
+    $same_device = password_verify($_SERVER['REMOTE_ADDR'], $u->getDevice());
 
     // Verify 2FA
-    $result = $tfa->verifyCode($u->mfa, $_POST['2fa'] ?? null);
+    $result = $tfa->verifyCode($u->getMfa(), $_POST['2fa'] ?? null);
 
-    echo '<pre>'.var_export($result, true).'</pre>';
-    echo '<pre>'.var_export($same_device, true).'</pre>';
+//    echo '<pre>'.var_export($result, true).'</pre>';
+//    echo '<pre>'.var_export($same_device, true).'</pre>';
+//    echo '<pre>'.var_export($_SESSION, true).'</pre>';
 
     if ($result || $same_device) {
 
         // Check XCSRF
         if ($_POST['token'] === $_SESSION['token']) {
-            $_SESSION['userid'] = $u->id;
-            $u->UpdateDevice($device);
-            header('Location: /');
+
+            // Check password
+            if (password_verify($_POST['password'], $u->getPassword())) {
+
+                $_SESSION['userid'] = $u->id;
+                $u->UpdateDevice($device);
+                header('Location: /');
+                die();
+            }
+
+            header('Location: /admin/login');
             die();
         }
 
         die('XCSRF triggered');
-
     }
 }
 

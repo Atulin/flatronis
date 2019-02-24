@@ -36,7 +36,7 @@ if (!empty($_POST) && isset($_POST)) {
         // Verify 2FA
         $result = $tfa->verifyCode($_SESSION['secret'], $_POST['2fa']);
         if ($result) {
-            $u->mfa = $_SESSION['secret'];
+            $u->setMfa($_SESSION['secret']);
             $u->Modify();
         }
     } else {

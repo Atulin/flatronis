@@ -112,10 +112,6 @@ class User
      * User constructor method
      * @param int $id ID
      * @param string $name Name
-     * @param string $email Name
-     * @param string $password Password
-     * @param string $mfa Multi-factor authentication token
-     * @param string $device Hashed IP of the last known device
      */
     public function __construct(int $id, string $name)
     {

@@ -29,22 +29,27 @@ try {
 // Register
 if (!empty($_POST) && isset($_POST)) {
 
+    // Validate and sanitize POST
+    $POST = filter_input_array(INPUT_POST, [
+        'token'    => FILTER_SANITIZE_STRING,
+        'login'    => FILTER_SANITIZE_STRING,
+        'email'    => FILTER_VALIDATE_EMAIL,
+        'password' => FILTER_DEFAULT
+    ]);
+
     // Verify captcha
     $recaptcha = new \ReCaptcha\ReCaptcha($_ENV['CAPTCHA_S']);
     $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
     if ($resp->isSuccess()) {
 
         // Check XCSRF
-        if ($_POST['token'] === $_SESSION['token']) {
-            $u = new User(0,
-                $_POST['login'],
-                $_POST['email'],
-                password_hash($_POST['password'], PASSWORD_ARGON2I),
-                '',
-                password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_ARGON2I)
-            );
+        if ($POST['token'] === $_SESSION['token']) {
+            $u = new User(0, $POST['login']);
+            $u->setEmail($POST['email']);
+            $u->setPassword(password_hash($POST['password'], PASSWORD_ARGON2I));
+            $u->setDevice(password_hash($_SERVER['REMOTE_ADDR'], PASSWORD_ARGON2I));
             $u->Add();
-            $_SESSION['name'] = $_POST['login'];
+            $_SESSION['name'] = $POST['login'];
             header('Location: /admin/mfa');
             die();
 
