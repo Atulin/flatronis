@@ -3,19 +3,19 @@ Options +FollowSymLinks
 
 # Strip trailing slash
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)/$ /$1 [L,R=301] # <- for test, for prod use [L,R=301]
+RewriteRule ^(.*)/$ /$1 [L,R] # <- for test, for prod use [L,R=301]
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R]
+
+# Redirects for versioned assets
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)\.(\d+)\.(js|css|min\.css|min\.js)$ $1.$3 [L]
 
 # Redirect to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
-
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Redirects for versioned assets
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.+)\.(\d+)\.(js|css|min\.css)$ $1.$3 [L]
 
 #php_flag display_errors 1
 

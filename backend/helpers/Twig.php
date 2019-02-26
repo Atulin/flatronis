@@ -30,23 +30,25 @@ class Twig
         $twig = new Twig_Environment($loader);
         $twig->addExtension(new Twig_Extensions_Extension_Text());
 
+        // Load an asset
         $twig->addFunction(new Twig_SimpleFunction('asset', function ($asset) {
             return sprintf('/public/%s', ltrim($asset, '/'));
+        }));
+
+        // Load a versioned asset
+        $twig->addFunction(new Twig_SimpleFunction('versioned', function ($asset, $extension) {
+            $filename = ASSETS."/$asset.$extension";
+            if (file_exists($filename)) {
+                $timestamp = filemtime($filename);
+                return "/public/assets/$asset.$timestamp.$extension";
+            }
+            return "/public/assets/$asset.$extension";
         }));
 
         $twig->addFilter(new Twig_SimpleFilter('break', function ($string) {
             $out = explode('<p><!-- pagebreak --></p>', $string)[0];
             $out = str_lreplace('</p>', ' ...</p>', $out);
             return $out;
-        }));
-
-        $twig->addFunction(new Twig_SimpleFunction('versioned', function ($asset, $extension){
-            $filename = ASSETS . "/css/$asset.$extension";
-            if (file_exists($filename)) {
-                $timestamp = filemtime($filename);
-                return ASSETS . "/css/$asset.$timestamp.$extension";
-            }
-            return null;
         }));
 
         return $twig;
