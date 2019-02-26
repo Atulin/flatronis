@@ -8,19 +8,9 @@
 
 // Load up Twig stuff
 use App\Models\Post;
+use App\Helpers\Twig;
 
-$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
-
-$twig = new Twig_Environment($loader);
-$twig->addExtension(new Twig_Extensions_Extension_Text());
-$twig->addFunction(new Twig_SimpleFunction('asset', function ($asset) {
-    return sprintf('/public/%s', ltrim($asset, '/'));
-}));
-$twig->addFilter(new Twig_SimpleFilter('break', function ($string) {
-    $out = explode('<p><!-- pagebreak --></p>', $string)[0];
-    $out = str_lreplace('</p>', ' ...</p>', $out);
-    return $out;
-}));
+$twig = Twig::Load();
 
 
 /**

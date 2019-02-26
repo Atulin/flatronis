@@ -6,15 +6,10 @@
  * Time: 03:24
  */
 // Load up Twig stuff
+use App\Helpers\Twig;
 use App\Models\User;
 
-$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
-
-$twig = new Twig_Environment($loader);
-$twig->addExtension(new Twig_Extensions_Extension_Text());
-$twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
-    return sprintf('/public/%s', ltrim($asset, '/'));
-}));
+$twig = Twig::Load();
 
 // Set up 2FA
 try {

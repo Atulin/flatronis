@@ -3,6 +3,7 @@
 <head>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+    {#<link rel="stylesheet" type="text/css" href="{{ versioned('style', 'min.css') }}">#}
 
     {% block analytics %}
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -60,7 +61,6 @@
 </head>
 
 <body>
-
     {% block body %}{% endblock %}
 
     <footer>

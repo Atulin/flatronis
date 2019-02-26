@@ -19,5 +19,6 @@ return array(
     'ReCaptcha\\' => array($vendorDir . '/google/recaptcha/src/ReCaptcha'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'App\\Models\\' => array($baseDir . '/backend/models'),
+    'App\\Helpers\\' => array($baseDir . '/backend/helpers'),
     'App\\Controllers\\' => array($baseDir . '/public/controllers'),
 );
