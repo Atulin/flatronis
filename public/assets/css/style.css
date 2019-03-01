@@ -539,18 +539,22 @@ body, html, div {
   scrollbar-color: #2a2a2a #4a4a4a;
   scrollbar-width: thin; }
 
-html, body {
-  font-family: Montserrat, sans-serif;
-  color: #fafafa;
+html,
+body {
   background-color: #131313;
-  width: 100vw;
+  color: #fafafa;
+  font-family: Montserrat, sans-serif;
   height: 100vh;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  width: 100vw; }
 
 html {
-  overflow-x: hidden;
+  box-sizing: border-box;
   height: 100%;
-  box-sizing: border-box; }
+  overflow-x: hidden; }
+
+body {
+  visibility: visible; }
 
 /*# sourceMappingURL=style.css.map */
