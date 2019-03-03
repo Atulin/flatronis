@@ -21,8 +21,9 @@
                 {% for post in posts %}
                     <li>
                         <div class="summary">
-                            <div class="id">{{ post.id }}</div>
-                            <div class="name">{{ post.title }}</div>
+                            <div class="field">{{ post.id }}</div>
+                            <div class="field">{{ post.title }}</div>
+                            <div class="spacer"></div>
                             <div class="actions">
                                 <a class="button" href="/admin/posts?del={{ post.id }}&token={{ token }}">
                                     <i class="delete icon"></i>

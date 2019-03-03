@@ -58,7 +58,6 @@
 
 <body>
     {% block body %}{% endblock %}
-    {{ versioned('style', 'min.css') ?: 'null' }}
     <footer>
         {% block footer %}
             &copy; Copyright {{ "now"|date("Y") }} by <a href="https://erronis.games">Erronis Games</a>.

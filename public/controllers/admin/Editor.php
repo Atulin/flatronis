@@ -10,14 +10,9 @@
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Helpers\Twig;
 
-$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
-
-$twig = new Twig_Environment($loader);
-$twig->addExtension(new Twig_Extensions_Extension_Text());
-$twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
-    return sprintf('/public/%s', ltrim($asset, '/'));
-}));
+$twig = Twig::Load();
 
 
 //Delete

@@ -8,14 +8,9 @@
 
 // Load up Twig stuff
 use App\Models\User;
+use App\Helpers\Twig;
 
-$loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
-
-$twig = new Twig_Environment($loader);
-$twig->addExtension(new Twig_Extensions_Extension_Text());
-$twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
-    return sprintf('/public/%s', ltrim($asset, '/'));
-}));
+$twig = Twig::Load();
 
 // Set up variables
 $user = User::GetById($_SESSION['userid']);
@@ -26,7 +21,7 @@ try {
     // Render the actual Twig template
     echo $twig->render('admin/dashboard.twig', [
         'navbar'  => SETTINGS['navbar'],
-        'Models\User' => $user
+        'user'    => $user
     ]);
 
 // Handle all possible errors

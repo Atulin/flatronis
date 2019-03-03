@@ -66,9 +66,9 @@ class APIAuth
      * @param string $comment
      * @throws \Exception
      */
-    public function __construct(string $id, string $name, string $comment)
+    public function __construct(?string $id, string $name, string $comment)
     {
-        $this->id          = $id;
+        $this->id          = $id ?? bin2hex(random_bytes(16));
         $this->name        = $name;
         $this->comment     = $comment;
     }
@@ -162,6 +162,31 @@ class APIAuth
     }
 
     /**
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return array
+     * @throws \Exception
+     */
+    public static function GetAll(int $limit = null, int $offset = null): array
+    {
+        $dbh = Database::Get();
+        $sql = 'SELECT * FROM api_keys LIMIT :l OFFSET :o';
+
+        $sth = $dbh->prepare($sql);
+
+        $sth->bindValue(':l', $limit ?: 10000, PDO::PARAM_INT);
+        $sth->bindValue(':o', $offset ?: 0, PDO::PARAM_INT);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+
+        return $sth->fetchAll();
+    }
+
+    /**
      *
      */
     public function Add(): void
@@ -191,7 +216,7 @@ class APIAuth
     public static function Delete(string $id): void
     {
         $dbh = Database::Get();
-        $sql = 'DELETE FROM api_keys WHERE `id` = :id';
+        $sql = 'DELETE FROM api_keys WHERE id = :id';
         $sth = $dbh->prepare($sql);
         $sth->bindParam(':id', $id);
         try {

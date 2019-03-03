@@ -2,12 +2,12 @@
 /**
  * Created by PhpStorm.
  * User: Angius
- * Date: 18.11.2018
- * Time: 06:23
+ * Date: 03.03.2019
+ * Time: 02:18
  */
 
 // Load up Twig stuff
-use App\Models\Category;
+use App\Models\APIAuth;
 use App\Models\User;
 use App\Helpers\Twig;
 
@@ -21,35 +21,42 @@ if (!empty($_POST) && isset($_POST)) {
 
         // Add
         if (empty($_POST['id'])) {
-            $c = new Category(
-                0,
-                $_POST['name'],
-                $_POST['description']
-            );
-            $c->Add();
-        // Edit
+            try {
+                $api = new APIAuth(
+                    null,
+                    $_POST['name'],
+                    $_POST['comment']
+                );
+                $api->GenerateKeys();
+                $api->Add();
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+            // Edit
         } else {
-            $c = new Category(
-                $_POST['id'],
-                $_POST['name'],
-                $_POST['description']
-            );
-            $c->Update();
+            try {
+                $api = APIAuth::Get($_POST['id']);
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+            $api->name = $_POST['name'];
+            $api->comment = $_POST['comment'];
+            $api->Update();
         }
 
     } else {
         die('XCSRF triggered');
     }
 
-    header('Location: /admin/categories');
+    header('Location: /admin/access');
 }
 
 //Delete
 if (isset($_GET['del']) && !empty($_GET['token']) && !empty($_GET['del'])) {
     // Check XCSRF
     if ($_GET['token'] === $_SESSION['token']) {
-        Category::Delete($_GET['del']);
-        header('Location: /admin/categories');
+        APIAuth::Delete($_GET['del']);
+        header('Location: /admin/access');
     } else {
         die('XCSRF triggered');
     }
@@ -70,14 +77,16 @@ $_SESSION['token'] = $token;
 // Render Twig template
 try {
     // Render the actual Twig template
-    echo $twig->render('admin/categories.twig', [
+    echo $twig->render('admin/access.twig', [
         'user'       => $user,
         'navbar'     => SETTINGS['navbar'],
-        'categories' => Category::GetAll(),
+        'keys'       => APIAuth::GetAll(),
         'token'      => $token
     ]);
 
 // Handle all possible errors
 } catch (Twig_Error $e) {
+    die('<pre>' . var_export($e, true) . '</pre>');
+} catch (Exception $e) {
     die('<pre>' . var_export($e, true) . '</pre>');
 }

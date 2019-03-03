@@ -1,0 +1,85 @@
+{% extends'Master.twig' %}
+{% block title %}Erronis Games{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ asset('assets/js/sticker.min.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+    {% include '/includes/navbar.twig' %}
+
+    <div id="admin">
+
+        {% include '/admin/includes/sidebar.twig' %}
+
+
+        <form action="/admin/access" class="margin-20 form" method="post">
+
+            <div class="field">
+                <label for="key-name">Name</label>
+                <input title="name" name="name" type="text" id="key-name">
+            </div>
+
+            <div class="field">
+                <label for="key-comment">Comment</label>
+                <textarea title="comment" name="comment" id="key-comment"></textarea>
+            </div>
+
+            <input type="hidden" value="{{ token }}" name="token">
+            <input type="hidden" value="" name="id" id="key-id">
+
+            <div class="field">
+                <input class="button" type="submit" value="Save">
+            </div>
+
+        </form>
+
+        <div class="content">
+
+            <ul class="categories">
+                {% for key in keys %}
+                    <li>
+                        <div class="summary">
+                            <div class="field">{{ key.name }}</div>
+                            <div class="secondary field">{{ key.id }}</div>
+                            <div class="spacer"></div>
+                            <div class="actions">
+                                <a class="button" href="/admin/access?del={{ key.id }}&token={{ token }}">
+                                    <i class="delete icon"></i>
+                                </a>
+                                <a class="button" onclick="insertData('{{ key.id }}', '{{ key.name }}', '{{ key.comment }}')">
+                                    <i class="edit icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="description">
+                            {{ key.comment }}
+                        </div>
+                        <div class="keys">
+                            <div class="name" onclick="show('private')">Private</div>
+                            <div class="key hidden" id="private">{{ key.private_key }}</div>
+                            <div class="name" onclick="show('public')">Public</div>
+                            <div class="key hidden" id="public">{{ key.public_key }}</div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        function insertData(id, name, comment) {
+            document.getElementById("key-name")   .value = name;
+            document.getElementById("key-comment").value = comment;
+            document.getElementById("key-id")     .value = id;
+        }
+
+        function show(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+    </script>
+
+{% endblock %}
+

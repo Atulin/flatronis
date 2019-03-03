@@ -41,8 +41,9 @@
                 {% for cat in categories %}
                     <li>
                         <div class="summary">
-                            <div class="id">{{ cat.id }}</div>
-                            <div class="name">{{ cat.name }}</div>
+                            <div class="field">{{ cat.id }}</div>
+                            <div class="field">{{ cat.name }}</div>
+                            <div class="spacer"></div>
                             <div class="actions">
                                 <a class="button" href="/admin/categories?del={{ cat.id }}&token={{ token }}">
                                     <i class="delete icon"></i>

@@ -405,16 +405,32 @@ div#admin {
       padding: 4px; }
       div#admin ul.categories li .summary {
         display: flex; }
-        div#admin ul.categories li .summary .id {
-          flex: 0 0 20px; }
-        div#admin ul.categories li .summary .name {
-          flex-grow: 1;
-          flex-shrink: 0; }
+        div#admin ul.categories li .summary .field {
+          margin-right: 1rem; }
+          div#admin ul.categories li .summary .field.secondary {
+            color: #818078; }
         div#admin ul.categories li .summary .actions {
           display: block; }
+        div#admin ul.categories li .summary .spacer {
+          flex: 1 1 0; }
       div#admin ul.categories li .description {
-        margin-left: 20px;
+        margin: 0.2rem;
         color: #818078; }
+      div#admin ul.categories li .keys .key {
+        font-size: 0.5rem;
+        font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
+        word-wrap: break-word;
+        color: #818078;
+        max-width: 77em;
+        margin: 2px;
+        padding: 2px;
+        border: 1px solid red; }
+        div#admin ul.categories li .keys .key.hidden {
+          visibility: collapse;
+          height: 0; }
+      div#admin ul.categories li .keys .name {
+        margin: 2px;
+        padding: 2px; }
 
 form.editor-container {
   display: flex;

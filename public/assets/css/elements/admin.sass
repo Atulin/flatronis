@@ -52,18 +52,38 @@ div#admin
       .summary
         display: flex
 
-        .id
-          flex: 0 0 20px
+        .field
+          margin-right: 1rem
 
-        .name
-          flex-grow: 1
-          flex-shrink: 0
+          &.secondary
+            color: $lighter
 
         .actions
           display: block
 
+        .spacer
+          flex: 1 1 0
+
       .description
-        margin-left: 20px
+        margin: 0.2rem
         color: $lighter
+
+      .keys
+        .key
+          font-size: 0.5rem
+          font-family: "Inconsolata", "Fira Mono", "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace
+          word-wrap: break-word
+          color: $lighter
+          max-width: 77em
+          margin: 2px
+          padding: 2px
+          border: 1px solid red
+          &.hidden
+            visibility: collapse
+            height: 0
+        .name
+          margin: 2px
+          padding: 2px
+
 
 

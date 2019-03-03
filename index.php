@@ -97,6 +97,7 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
             ['GET|POST', '/admin/categories', function () {require CONTROLLERS.'/admin/Categories.php';}, 'categories'],
             ['GET|POST', '/admin/posts', function () {require CONTROLLERS.'/admin/Posts.php';}, 'posts'],
             ['GET|POST', '/admin/editor', function () {require CONTROLLERS.'/admin/Editor.php';}, 'editor'],
+            ['GET|POST', '/admin/access', function () {require CONTROLLERS.'/admin/Access.php';}, 'access'],
         ]);
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
