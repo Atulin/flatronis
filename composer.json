@@ -11,7 +11,8 @@
     "robthree/twofactorauth": "^1.6",
     "google/recaptcha": "1.2",
     "symfony/yaml": "^4.2",
-    "ext-openssl": "*"
+    "ext-openssl": "*",
+    "ext-zlib": "*"
   },
   "require-dev": {
     "filp/whoops": "^2.3",

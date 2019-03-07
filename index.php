@@ -78,6 +78,7 @@ try {
 
         // API
         ['GET', '/api/posts', function(){require CONTROLLERS.'/api/Posts.php';}, 'api-posts'],
+        ['GET|POST', '/api/sitemap', function(){require CONTROLLERS.'/api/Sitemap.php';}, 'api-sitemap'],
 
         // Registration
         ['GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'],
