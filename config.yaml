@@ -4,7 +4,7 @@ domain: erronis.games
 # Name of your blog
 name: Erronis Games
 
-# How many posts per page do you want? Use 0 for infinity
+# How many posts per page do you want?
 posts: 6
 
 # List layers of the parallax on home page

@@ -11,13 +11,15 @@ use App\Helpers\Sitemap;
 
 $log = new Log();
 
-if ($_POST) {
+$log->Write('post: '.var_export($_REQUEST, true));
+
+if (isset($_POST) && !empty($_POST)) {
     Sitemap::Create($_POST['data']);
 } else {
     try {
-        $sitemap = new Sitemap('https://' . SETTINGS['domain'] . '/api/sitemap');
+        $sitemap = new Sitemap('http://' . SETTINGS['domain'] . '/api/sitemap');
     } catch (Exception $e) {
         $log->Write($e->getMessage());
     }
-    $sitemap->GetSitemap();
+//    $sitemap->GetSitemap();
 }

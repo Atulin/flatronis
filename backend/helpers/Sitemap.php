@@ -15,6 +15,7 @@ class Sitemap
     private $url;
     private $callback;
     private $frequency;
+    private $log;
 
 
     /**
@@ -31,6 +32,7 @@ class Sitemap
         $this->url = SETTINGS['domain'];
         $this->callback = $callback;
         $this->frequency = $frequency ?? 'daily';
+        $this->log = new Log();
     }
 
 
@@ -54,7 +56,7 @@ class Sitemap
 
         // Log creation to file
         $log = new Log();
-        $log->Write('Sitemap created');
+        $log->Write('Sitemap created' . ' ' . var_export($_POST, true));
     }
 
 
@@ -84,8 +86,7 @@ class Sitemap
         $context = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
 
-        $log = new Log();
-        $log->Write("Sitemap requested: $result");
+        $this->log->Write("Sitemap requested: $result");
     }
 
 

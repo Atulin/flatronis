@@ -13,28 +13,18 @@ use App\Helpers\Twig;
 $twig = Twig::Load();
 
 
-/**
- * @param $search
- * @param $replace
- * @param $subject
- * @return mixed
- */
-function str_lreplace($search, $replace, $subject)
-{
-    $pos = strrpos($subject, $search);
-    if($pos !== false)
-    {
-        $subject = substr_replace($subject, $replace, $pos, \strlen($search));
-    }
-    return $subject;
-}
-
-
 // Set up variables
+$total_pages = ceil(Post::Count() / SETTINGS['posts']);
+
 try {
     $posts = Post::GetAll(SETTINGS['posts'], SETTINGS['posts'] * (($p ?? 1) - 1));
 } catch (PDOException $e) {
     $posts[0]['body'] = $e;
+}
+
+if (empty($posts)) {
+    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+    die('404');
 }
 
 // Render Twig template
@@ -46,7 +36,8 @@ try {
         'header'   => true,
         'analytics'=> $_ENV['ANALYTICS'],
         'parallax' => SETTINGS['parallax'],
-        'page'     => $p ?? 1
+        'page'     => $p ?? 1,
+        'total'    => $total_pages
     ]);
 
 

@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Database;
 use DateTime;
 use App\Models;
 use PDO;
@@ -72,7 +73,7 @@ class Post
      */
     public static function Get(int $id): Post
     {
-        $dbh = Models\Database::Get();
+        $dbh = Database::Get();
         $sql = 'SELECT * FROM `posts`
                 WHERE `id` = :id
                 LIMIT 1';
@@ -128,7 +129,7 @@ class Post
      */
     public function Add(): void
     {
-        $dbh = Models\Database::Get();
+        $dbh = Database::Get();
         $sql = 'INSERT INTO `posts` (id, title, author, date, category, body)
                 VALUES (:id, :title, :author, :date, :category, :body)';
 
@@ -156,7 +157,7 @@ class Post
      */
     public static function Delete(int $id): void
     {
-        $dbh = Models\Database::Get();
+        $dbh = Database::Get();
         $sql = 'DELETE FROM `posts` WHERE `id` = :id';
         $sth = $dbh->prepare($sql);
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
@@ -173,7 +174,7 @@ class Post
      */
     public function Update(): void
     {
-        $dbh = Models\Database::Get();
+        $dbh = Database::Get();
         $sql = 'UPDATE `posts`
                 SET `title` = :title, `author` = :author, `date` = :date, `category` =:category, `body` = :body
                 WHERE `id` = :id';
@@ -195,6 +196,24 @@ class Post
         }
     }
 
+    /**
+     * @return int
+     */
+    public static function Count(): int
+    {
+        $dbh = Database::Get();
+        $sql = 'SELECT COUNT(*) FROM posts';
+
+        $sth = $dbh->prepare($sql);
+
+        try {
+            $sth->execute();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+
+        return (int)$sth->fetchColumn();
+    }
 
     /**
      * Transforms an associative array into a Post object
