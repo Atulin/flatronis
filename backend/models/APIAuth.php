@@ -9,6 +9,7 @@
 
 namespace App\Models;
 
+use Exception;
 use PDO;
 use PDOException;
 
@@ -64,7 +65,7 @@ class APIAuth
      * @param string $id
      * @param string $name
      * @param string $comment
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(?string $id, string $name, string $comment)
     {
@@ -75,7 +76,7 @@ class APIAuth
 
     /**
      * @param int $power
-     * @throws \Exception
+     * @throws Exception
      */
     public function GenerateKeys(int $power = 1024): void
     {
@@ -85,7 +86,7 @@ class APIAuth
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function Encrypt(): string
     {
@@ -126,7 +127,7 @@ class APIAuth
     /**
      * @param string $id
      * @return APIAuth
-     * @throws \Exception
+     * @throws Exception
      */
     public static function Get(string $id): ?APIAuth
     {
@@ -165,7 +166,7 @@ class APIAuth
      * @param int|null $limit
      * @param int|null $offset
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function GetAll(int $limit = null, int $offset = null): array
     {

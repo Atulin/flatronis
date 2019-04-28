@@ -6,10 +6,10 @@
  * Time: 21:58
  */
 
-use App\Helpers\Log;
+use App\Helpers\Logger;
 use App\Helpers\Sitemap;
 
-$log = new Log();
+$log = new Logger();
 
 $log->Write('post: '.var_export($_REQUEST, true));
 

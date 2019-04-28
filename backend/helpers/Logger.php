@@ -13,7 +13,7 @@ namespace App\Helpers;
  * Class Log
  * @package App\Helpers
  */
-class Log
+class Logger
 {
     private $handler;
 

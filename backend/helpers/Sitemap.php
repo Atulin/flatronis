@@ -9,6 +9,12 @@
 namespace App\Helpers;
 
 
+use Exception;
+
+/**
+ * Class Sitemap
+ * @package App\Helpers
+ */
 class Sitemap
 {
     private $token;
@@ -22,7 +28,7 @@ class Sitemap
      * Sitemap constructor.
      * @param string $callback
      * @param string $frequency
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct( string $callback, string $frequency = null )
     {
@@ -32,7 +38,7 @@ class Sitemap
         $this->url = SETTINGS['domain'];
         $this->callback = $callback;
         $this->frequency = $frequency ?? 'daily';
-        $this->log = new Log();
+        $this->log = new Logger();
     }
 
 
@@ -55,7 +61,7 @@ class Sitemap
         // file_put_contents('lastresponse.txt', var_export($_POST, true) . "\r\n");
 
         // Log creation to file
-        $log = new Log();
+        $log = new Logger();
         $log->Write('Sitemap created' . ' ' . var_export($_POST, true));
     }
 
@@ -94,7 +100,7 @@ class Sitemap
      * Sends a request to Codepunker API asking for an authorization token
      * @param string $key Takes a Codepunker API key
      * @return string Returns an authorization token or null if authorization failed
-     * @throws \Exception
+     * @throws Exception
      */
     private static function RequestToken(string $key): string
     {

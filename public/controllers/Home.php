@@ -9,6 +9,9 @@
 // Load up Twig stuff
 use App\Models\Post;
 use App\Helpers\Twig;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 $twig = Twig::Load();
 
@@ -28,20 +31,23 @@ if (empty($posts)) {
 }
 
 // Render Twig template
+
+// Render the actual Twig template
 try {
-    // Render the actual Twig template
     echo $twig->render('home.twig', [
-        'posts'    => $posts,
-        'navbar'   => SETTINGS['navbar'],
-        'header'   => true,
-        'analytics'=> $_ENV['ANALYTICS'],
+        'posts' => $posts,
+        'navbar' => SETTINGS['navbar'],
+        'header' => true,
+        'analytics' => $_ENV['ANALYTICS'],
         'parallax' => SETTINGS['parallax'],
-        'page'     => $p ?? 1,
-        'total'    => $total_pages
+        'page' => $p ?? 1,
+        'total' => $total_pages
     ]);
-
-
-// Handle all possible errors
-} catch (Twig_Error$e) {
+} catch (LoaderError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (RuntimeError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (SyntaxError $e) {
     echo '<pre>'.var_export($e, true).'</pre>';
 }
+

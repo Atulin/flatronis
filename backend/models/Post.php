@@ -8,9 +8,7 @@
 
 namespace App\Models;
 
-use App\Models\Database;
 use DateTime;
-use App\Models;
 use PDO;
 use PDOException;
 

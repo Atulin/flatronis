@@ -10,6 +10,9 @@
 use App\Models\APIAuth;
 use App\Models\User;
 use App\Helpers\Twig;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 $twig = Twig::Load();
 
@@ -85,8 +88,12 @@ try {
     ]);
 
 // Handle all possible errors
-} catch (Twig_Error $e) {
-    die('<pre>' . var_export($e, true) . '</pre>');
+} catch (LoaderError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (RuntimeError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (SyntaxError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
 } catch (Exception $e) {
-    die('<pre>' . var_export($e, true) . '</pre>');
+    echo '<pre>'.var_export($e, true).'</pre>';
 }

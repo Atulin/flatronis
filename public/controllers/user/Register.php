@@ -9,13 +9,18 @@
 // Load up Twig stuff
 use App\Helpers\Twig;
 use App\Models\User;
+use ReCaptcha\ReCaptcha;
+use RobThree\Auth\TwoFactorAuthException;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 $twig = Twig::Load();
 
 // Set up 2FA
 try {
     $tfa = new RobThree\Auth\TwoFactorAuth('Erronis Games');
-} catch (\RobThree\Auth\TwoFactorAuthException $e) {
+} catch (TwoFactorAuthException $e) {
     echo '<pre>'.var_export($e, true).'</pre>';
 }
 
@@ -33,7 +38,7 @@ if (!empty($_POST) && isset($_POST)) {
     ]);
 
     // Verify captcha
-    $recaptcha = new \ReCaptcha\ReCaptcha($_ENV['CAPTCHA_S']);
+    $recaptcha = new ReCaptcha($_ENV['CAPTCHA_S']);
     $resp = $recaptcha->verify($_POST['g-recaptcha-response']);
     if ($resp->isSuccess()) {
 
@@ -80,6 +85,10 @@ try {
     ]);
 
 // Handle all possible errors
-} catch (Twig_Error $e) {
-    die('<pre>'.var_export($e, true).'</pre>');
+} catch (LoaderError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (RuntimeError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (SyntaxError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
 }

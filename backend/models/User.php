@@ -128,7 +128,7 @@ class User
      */
     public static function GetById(int $id, bool $safe = null): User
     {
-        return self::GetBy($id, 'id', PDO::PARAM_INT, $safe);
+        return self::GetBy($id, 'id', $safe);
     }
 
     /**
@@ -139,18 +139,17 @@ class User
      */
     public static function GetByName(string $name, bool $safe = null): User
     {
-        return self::GetBy($name, 'name', PDO::PARAM_STR, $safe);
+        return self::GetBy($name, 'name', $safe);
     }
 
     /**
      * Generic getter method for User
      * @param int $param Parameter to get by
      * @param string $field Property to get by
-     * @param int $type Type of the parameter in PDO:: class
      * @param bool|null $safe
      * @return User Returns User object
      */
-    private static function GetBy($param, string $field, int $type, bool $safe = null): User
+    private static function GetBy($param, string $field, bool $safe = null): User
     {
         $dbh = Database::Get();
         $sql = 'SELECT * FROM `users`';
@@ -158,16 +157,18 @@ class User
         switch ($field) {
             case 'id':
                 $sql .= 'WHERE `id` = :param';
+                $type = PDO::PARAM_INT;
                 break;
             case 'name':
                 $sql .= 'WHERE `name` = :param';
+                $type = PDO::PARAM_STR;
                 break;
         }
         $sql .= ' LIMIT 1';
 
         $sth = $dbh->prepare($sql);
 
-        $sth->bindParam(':param', $param, $type);
+        $sth->bindParam(':param', $param, $type ?? PDO::PARAM_INT);
 
         try {
             $sth->execute();

@@ -8,13 +8,17 @@
 // Load up Twig stuff
 use App\Helpers\Twig;
 use App\Models\User;
+use RobThree\Auth\TwoFactorAuthException;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 $twig = Twig::Load();
 
 // Set up 2FA
 try {
     $tfa = new RobThree\Auth\TwoFactorAuth('Erronis Games');
-} catch (\RobThree\Auth\TwoFactorAuthException $e) {
+} catch (TwoFactorAuthException $e) {
     echo '<pre>' . var_export($e, true) . '</pre>';
 }
 
@@ -63,7 +67,7 @@ if (!empty($_POST) && isset($_POST)) {
 // Set up 2FA secret
 try {
     $secret = $tfa->createSecret();
-} catch (\RobThree\Auth\TwoFactorAuthException $e) {
+} catch (TwoFactorAuthException $e) {
     $secret = null;
     echo '<pre>' . var_export($e, true) . '</pre>';
 }
@@ -87,6 +91,10 @@ try {
     ]);
 
 // Handle all possible errors
-} catch (Twig_Error $e) {
-    die('<pre>'.var_export($e, true).'</pre>');
+} catch (LoaderError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (RuntimeError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
+} catch (SyntaxError $e) {
+    echo '<pre>'.var_export($e, true).'</pre>';
 }

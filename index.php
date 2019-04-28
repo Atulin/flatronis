@@ -19,6 +19,7 @@ use App\Models\User;
 
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\Yaml\Yaml;
+use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 // Load settings file
@@ -51,7 +52,7 @@ session_start();
 
 // Set up Whoops
 $whoops = new Run();
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->pushHandler(new PrettyPageHandler);
 $whoops->register();
 
 // Set up routing
@@ -72,17 +73,17 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
 // Map routes
 try {
     $router->addRoutes([
-        ['GET', '/', function (){require CONTROLLERS.'/Home.php';}, 'home'],
-        ['GET', '/[i:p]?', function ($p=null){$p; require CONTROLLERS.'/Home.php';}, 'home-page'],
-        ['GET', '/post/[i:id]/[:slug]?', function ($id){$id; require CONTROLLERS.'/Post.php';}, 'Models\Post'],
+        ['GET', '/', static function (){require CONTROLLERS.'/Home.php';}, 'home'],
+        ['GET', '/[i:p]?', static function ($p=null){$p; require CONTROLLERS.'/Home.php';}, 'home-page'],
+        ['GET', '/post/[i:id]/[:slug]?', static function ($id){$id; require CONTROLLERS.'/Post.php';}, 'Models\Post'],
 
         // API
-        ['GET', '/api/posts', function(){require CONTROLLERS.'/api/Posts.php';}, 'api-posts'],
-        ['GET|POST', '/api/sitemap', function(){require CONTROLLERS.'/api/Sitemap.php';}, 'api-sitemap'],
+        ['GET', '/api/posts', static function(){require CONTROLLERS.'/api/Posts.php';}, 'api-posts'],
+        ['GET|POST', '/api/sitemap', static function(){require CONTROLLERS.'/api/Sitemap.php';}, 'api-sitemap'],
 
         // Registration
-        ['GET|POST', '/admin/register', function (){require CONTROLLERS.'/user/Register.php';}, 'register'],
-        ['GET|POST', '/admin/mfa', function (){require CONTROLLERS.'/user/MFA.php';}, 'mfa'],
+        ['GET|POST', '/admin/register', static function (){require CONTROLLERS.'/user/Register.php';}, 'register'],
+        ['GET|POST', '/admin/mfa', static function (){require CONTROLLERS.'/user/MFA.php';}, 'mfa'],
 
 //        ['GET|POST', '/d', function (){require __DIR__.'/dev.php';}]
     ]);
@@ -94,11 +95,11 @@ try {
 if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
         $router->addRoutes([
-            ['GET', '/admin', function () {require CONTROLLERS.'/admin/Dashboard.php';}, 'dashboard'],
-            ['GET|POST', '/admin/categories', function () {require CONTROLLERS.'/admin/Categories.php';}, 'categories'],
-            ['GET|POST', '/admin/posts', function () {require CONTROLLERS.'/admin/Posts.php';}, 'posts'],
-            ['GET|POST', '/admin/editor', function () {require CONTROLLERS.'/admin/Editor.php';}, 'editor'],
-            ['GET|POST', '/admin/access', function () {require CONTROLLERS.'/admin/Access.php';}, 'access'],
+            ['GET', '/admin', static function () {require CONTROLLERS.'/admin/Dashboard.php';}, 'dashboard'],
+            ['GET|POST', '/admin/categories', static function () {require CONTROLLERS.'/admin/Categories.php';}, 'categories'],
+            ['GET|POST', '/admin/posts', static function () {require CONTROLLERS.'/admin/Posts.php';}, 'posts'],
+            ['GET|POST', '/admin/editor', static function () {require CONTROLLERS.'/admin/Editor.php';}, 'editor'],
+            ['GET|POST', '/admin/access', static function () {require CONTROLLERS.'/admin/Access.php';}, 'access']
         ]);
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
@@ -107,7 +108,7 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
     try {
         $router->addRoutes([
             // Login
-            ['GET|POST', '/admin/login', function () {require CONTROLLERS.'/user/Login.php';}, 'login'],]);
+            ['GET|POST', '/admin/login', static function () {require CONTROLLERS.'/user/Login.php';}, 'login']]);
     } catch (Exception $e) {
         throw new RuntimeException($e->getMessage());
     }

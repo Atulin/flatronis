@@ -8,11 +8,12 @@
 
 namespace App\Helpers;
 
-use Twig_Environment;
+use function strlen;
+use Twig\Environment;
 use Twig_Extensions_Extension_Text;
-use Twig_Loader_Filesystem;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Loader\FilesystemLoader;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Class Twig
@@ -21,22 +22,22 @@ use Twig_SimpleFunction;
 class Twig
 {
     /**
-     * @return Twig_Environment
+     * @return Environment
      */
-    public static function Load(): Twig_Environment
+    public static function Load(): Environment
     {
-        $loader = new Twig_Loader_Filesystem([VIEWS, ASSETS]);
+        $loader = new FilesystemLoader([VIEWS, ASSETS]);
 
-        $twig = new Twig_Environment($loader);
+        $twig = new Environment($loader);
         $twig->addExtension(new Twig_Extensions_Extension_Text());
 
         // Load an asset
-        $twig->addFunction(new Twig_SimpleFunction('asset', function ($asset) {
+        $twig->addFunction(new TwigFunction('asset', static function ($asset) {
             return sprintf('/public/%s', ltrim($asset, '/'));
         }));
 
         // Load a versioned asset
-        $twig->addFunction(new Twig_SimpleFunction('versioned', function ($asset, $extension) {
+        $twig->addFunction(new TwigFunction('versioned', static function ($asset, $extension) {
             $filename = ASSETS."/$asset.$extension";
             if (file_exists($filename)) {
                 $timestamp = filemtime($filename);
@@ -45,7 +46,7 @@ class Twig
             return "/public/assets/$asset.$extension";
         }));
 
-        $twig->addFilter(new Twig_SimpleFilter('break', function ($string) {
+        $twig->addFilter(new TwigFilter('break', static function ($string) {
             $out = explode('<p><!-- pagebreak --></p>', $string)[0];
             $out = str_lreplace('</p>', ' ...</p>', $out);
             return $out;
@@ -66,7 +67,7 @@ function str_lreplace($search, $replace, $subject)
     $pos = strrpos($subject, $search);
     if($pos !== false)
     {
-        $subject = substr_replace($subject, $replace, $pos, \strlen($search));
+        $subject = substr_replace($subject, $replace, $pos, strlen($search));
     }
     return $subject;
 }
