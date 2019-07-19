@@ -18,7 +18,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . / [L]
 
 
-php_flag display_errors 1
+# php_flag display_errors 1
 
 # Add Caching.
 <FilesMatch ".(ico|jpg|jpeg|png|gif|js|css|swf)$">
