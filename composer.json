@@ -1,24 +1,23 @@
 {
   "require": {
-    "twig/twig": "^2.6",
+    "twig/twig": "^3.1",
     "erusev/parsedown": "^1.7",
-    "erusev/parsedown-extra": "^0.7",
-    "symfony/dotenv": "^4.2.3",
-    "altorouter/altorouter": "^1.2",
+    "erusev/parsedown-extra": "^0.8",
+    "symfony/dotenv": "^5.2",
+    "altorouter/altorouter": "^2.0",
     "ext-json": "*",
     "ext-pdo": "*",
-    "twig/extensions": "^1.5",
     "robthree/twofactorauth": "^1.6",
-    "google/recaptcha": "1.2",
-    "symfony/yaml": "^4.2",
+    "google/recaptcha": "^1.2",
+    "symfony/yaml": "^5.2",
     "ext-openssl": "*",
     "ext-zlib": "*"
   },
   "require-dev": {
     "filp/whoops": "^2.3",
-    "symfony/var-dumper": "^4.2",
+    "symfony/var-dumper": "^5.2",
     "roave/security-advisories": "dev-master",
-    "squizlabs/php_codesniffer": "3.4.0"
+    "squizlabs/php_codesniffer": "^3.5"
   },
   "autoload": {
     "psr-4": {

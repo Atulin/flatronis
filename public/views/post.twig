@@ -3,7 +3,7 @@
 {% block description %}Erronis Games blog – {{ post.title }} ({{ post.date|date }}){% endblock %}
 {% block canonical %}https://erronis.games/{{ post.id }}/{{ post.title }}{% endblock %}
 {% block thumbnail %}{% endblock %}
-{% block summary %}{{ post.body|striptags|truncate(200) }}{% endblock %}
+{% block summary %}{{ post.body|striptags|u.truncate(200) }}{% endblock %}
 
 {% block scripts %}
     {{ parent() }}
