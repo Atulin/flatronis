@@ -3,7 +3,7 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^10.0.4",
-    "cssnano": "^5.1.13",
+    "cssnano": "^6.0.0",
     "postcss-discard-comments": "^4.0.2"
   },
   "license": "MIT"
